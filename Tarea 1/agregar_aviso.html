@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+<div class="centrado">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="clases.css">
+    <title> Adopción Express | Confirmación </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+    <h1 class="header-bienvenida"> Agregar un aviso </h1> <br>
+    <h3> ¿En qué lugar? </h3> <br>
+    <form class="formulario-caja">
+    <label for="region"> Región: </label>
+    <select id="region" name="region" required>
+        <option value="" disabled selected> Elija una región </option>
+        <option value="arica"> Arica y Parinacota </option>
+        <option value="tarapaca"> Tarapacá </option>
+        <option value="antofagasta"> Antofagasta </option>
+        <option value="atacama"> Atacama </option>
+        <option value="coquimbo"> Coquimbo </option>
+        <option value="valparaiso"> Valparaíso </option>
+        <option value="metropolitana"> Metropolitana </option>
+        <option value="ohiggins"> Libertador General Bernardo O’Higgins </option>
+        <option value="maule"> Maule </option>
+        <option value="ñuble"> Ñuble </option>
+        <option value="biobio"> Biobío </option>
+        <option value="araucania"> La Araucanía </option>
+        <option value="losrios"> Los Ríos </option>
+        <option value="loslagos"> Los Lagos </option>
+        <option value="aysen"> Aysén del General Carlos Ibáñez del Campo </option>
+        <option value="magallanes"> Magallanes y la Antártica Chilena </option>
+    </select>
+    <label for="comuna"> Comuna: </label>
+    <select id="comuna" name="comuna" required>
+    </select>
+    <label> Sector: </label>
+    <input type="text" id="sector" size="100" name="sector" class="input-texto" placeholder="Escriba aquí" onblur="validarSector()">
+    <small id="error-sector" style="color:red"></small>
+    </form>
+    <script>
+    function validarSector() {
+        const sector = document.getElementById("sector").value.trim();
+        const error = document.getElementById("error-sector");
+        error.textContent = "";
+
+        if (sector.length > 100) {
+            error.textContent = "Demasiados caracteres";
+            return false;
+        }
+
+        else {
+            return true;
+        }
+    }
+    </script>
+    <script>
+    const comunasPorRegion = {
+        arica: ["Arica","Camarones","Putre","General Lagos"],
+        tarapaca: ["Alto Hospicio","Iquique","Del Tamarugal","Huara","Camiña","Colchane","Pica","Pozo Almonte"],
+        antofagasta: ["Tocopilla","María Elenea","Calama","Ollagüe","San Pedro de Atacama","Mejillones","Sierra Gorda","Taltal"],
+        atacama: ["Chañaral","Diego de Almagro","Copiapó,Caldera","Tierra Amarilla","Vallenar","Freirina","Huasco","Alto del Carmen"],
+        coquimbo: ["La Serena","La Higuera","Coquimbo","Andacollo","Vicuña","Paihuano","Ovalle","Río Hurtado","Monte Patria","Combarbalá","Punitaqui","Illapel","Salamanca","Los Vilos","Canela"],
+        valparaiso: ["La Ligua","Petorca","Cabildo","Zapallar","Papudo","Los Andes","San Esteban","Calle Larga","Rinconada","San Felipe","Putaendo","Santa María","Panquehue","Llaillay","Catemu","Quillota","La Cruz","Calera","Nogales","Hijuelas","Limache","Olmué","Valparaíso","Viña del Mar","Quintero","Puchuncaví","Quilpué","Villa Alemana","Casablanca","Concón","Juan Fernández","San Antonio","Cartagena","El Tabo","El Quisco","Algarrobo","Santo Domingo","Isla de Pascua"],
+        metropolitana: ["Natales","Torres del Paine","Punta Arenas","Río Verde","Laguna Blanca","San Gregorio","Porvenir","Primavera","Timaukel","Cabo de Hornos","Antártica","Santiago","Independencia","Conchalí","Huechuraba","Recoleta","Providencia","Vitacura","Lo Barnechea","Las Condes","Ñuñoa","La Reina","Macul","Peñalolén","La Florida","San Joaquín","La Granja","La Pintana","San Ramón","San Miguel","La Cisterna","El Bosque","Pedro Aguirre Cerda","Lo Espejo","Estación Central","Cerrillos","Maipú","Quinta Normal","Lo Prado","Pudahuel","Cerro Navia","Renca","Quilicura","Colina","Lampa","Tiltil","Puente Alto","San José de Maipo","Pirque","San Bernardo","Buin","Paine","Calera de Tango","Melipilla","María Pinto","Curacaví","Alhué","San Pedro","Talagante","Peñaflor","Isla de Maipo","El Monte","Padre Hurtado"],
+        ohiggins: ["Rancagua","Graneros","Mostazal","Codegua","Machalí","Olivar","Requinoa","Rengo","Malloa","Quinta de Tilcoco","San Vicente","Pichidegua","Peumo","Coltauco","Coinco","Doñihue","Las Cabras","San Fernando","Chimbarongo","Placilla","Nancagua","Chépica","Santa Cruz","Lolol","Pumanque","Palmilla","Peralillo","Pichilemu","Navidad","Litueche","La Estrella","Marchihue","Paredones"],
+        maule: ["Curicó","Teno","Romeral","Molina","Sagrada Familia","Hualañé","Licantén","Vichuquén","Rauco","Talca","Pelarco","Río Claro","San Clemente","Maule","San Rafael","Empedrado","Pencahue","Constitución","Curepto","Linares","Yerbas Buenas","Colbún","Longaví","Parral","Retiro","Villa Alegre","San Javier","Cauquenes","Pelluhue","Chanco"],
+        ñuble: ["Bulnes", "Chillán", "Chillán Viejo", "El Carmen", "Pemuco", "Pinto", "Quillón", "San Ignacio", "Yungay","Coihueco", "Ñiquén", "San Carlos", "San Fabián", "San Nicolás","Cobquecura", "Coelemu", "Ninhue", "Portezuelo", "Quirihue", "Ránquil", "Treguaco"],
+        biobio: ["Arauco","Cañete","Contulmo","Curanilahue","Lebu","Los Álamos","Tirúa","Alto Biobío","Antuco","Cabrero","Laja","Los Ángeles","Mulchén","Nacimiento","Negrete","Quilaco","Quilleco","San Rosendo","Santa Bárbara","Tucapel","Yumbel","Lota","Concepción","Coronel","Chiguayante","Florida","Hualpén","Hualqui","Penco","San Pedro de la Paz","Santa Juana","Talcahuano","Tomé"],
+        araucania: ["Angol","Renaico","Collipulli","Lonquimay","Curacautín","Ercilla","Victoria","Traiguén","Lumaco","Purén","Los Sauces","Temuco","Lautaro","Perquenco","Vilcún","Cholchol","Cunco","Melipeuco","Curarrehue","Pucón","Villarrica","Freire","Pitrufquén","Gorbea","Loncoche","Toltén","Teodoro Schmidt","Saavedra","Carahue","Nueva Imperial","Galvarino","Padre las Casas"],
+        losrios: ["Valdivia","Mariquina","Lanco","Máfil","Corral","Los Lagos","Panguipulli","Paillaco","La Unión","Futrono","Río Bueno","Lago Ranco"],
+        loslagos: ["Osorno","San Pablo","Puyehue","Puerto Octay","Purranque","Río Negro","San Juan de la Costa","Puerto Montt","Puerto Varas","Cochamó","Calbuco","Maullín","Los Muermos","Fresia","Llanquihue","Frutillar","Castro","Ancud","Quemchi","Dalcahue","Curaco de Vélez","Quinchao","Puqueldón","Chonchi","Queilén","Quellón","Chaitén","Hualaihué","Futaleufú","Palena"],
+        aysen: ["Coyhaique","Lago Verde","Aysén","Cisnes","Guaitecas","Chile Chico","Río Ibáñez"],
+        magallanes: ["Cochrane","O'Higgins","Tortel"]
+    };
+    const regionSelect = document.getElementById("region");
+    const comunaSelect = document.getElementById("comuna");
+    regionSelect.addEventListener("change", function() {
+        const regionSeleccionada = this.value;
+        comunaSelect.innerHTML = '<option value="" disabled selected> Elija una comuna </option>';
+        if (comunasPorRegion[regionSeleccionada]) {
+            comunasPorRegion[regionSeleccionada].forEach(comuna => {
+                const option = document.createElement("option");
+                option.value = comuna.toLowerCase().replace(/\s+/g, "-");
+                option.textContent = comuna;
+                comunaSelect.appendChild(option);
+            });
+        }
+    });
+  </script>
+        <br>
+    <h3> ¿Cómo se contacta? </h3>
+        <br>
+    <form class="formulario-caja">
+    <label> Nombre completo: </label>
+    <input type="text" id="nombre" maxlength="200" minlength="3" name="nombre" class="input-texto" placeholder="Escriba aquí" required onblur="validarNombre()">
+    <small id="error-nombre" style="color:red"></small>
+    <br><br>
+    <label> Correo electrónico: </label>
+    <input type="email" id="correo" maxlength="100" minlength="5" name="correo" class="input-texto" placeholder="Ej: nombre@xxx.xxx" required onblur="validarCorreo()">
+    <small id="error-correo" style="color:red"></small> 
+    <br><br>
+    <label> Teléfono: </label>
+    <input type="tel" id="telefono" maxlength="13" name="telefono" class="input-texto" placeholder="+NNN.NNNNNNNN" onblur="validarTelefono()">
+    <small id="error-telefono" style="color:red"></small> 
+    <br><br>
+    <label for="contacto"> Contactar mediante: </label>
+    <select id="contacto" name="contacto">
+        <option value="" disabled selected> Elija método </option>
+        <option value="wsp"> WhatsApp </option>
+        <option value="telegram"> Telegram </option>
+        <option value="ig"> Instagram </option>
+        <option value="tiktok"> TikTok </option>
+        <option value="facebook"> Facebook Messenger </option>
+        <option value="twitter"> Twitter </option>
+        <option value="linkedin"> LinkedIn </option>
+        <option value="ds"> Discord </option>
+    </select>
+    <input type="url" id="url" maxlength="50" minlength="4" class="input-texto" name="url" placeholder="ID o URL" onblur="validarURL()">
+    <small id="error-url" style="color:red"></small>
+    </form>
+    <script>
+    function validarNombre() {
+        const nombre = document.getElementById("nombre").value.trim();
+        const error = document.getElementById("error-nombre");
+        error.textContent = "";
+
+        if (nombre.length > 200) {
+            error.textContent = "Demasiados caracteres";
+            return false;
+        }
+
+        if (nombre.length < 3) {
+            error.textContent = "Pocos caracteres";
+            return false;
+        }
+
+        else {
+            return true;
+        }
+    }
+
+    function validarCorreo() {
+        const correo = document.getElementById("correo").value.trim();
+        const error = document.getElementById("error-correo");
+        error.textContent = "";
+
+        if (correo.length > 100) {
+            error.textContent = "Demasiados caracteres";
+            return false;
+        }
+
+        if (correo.length < 5) {
+            error.textContent = "Pocos caracteres";
+            return false;
+        }
+
+        if (!correo.includes("@") || !correo.includes(".")) {
+            error.textContent = "Formato erróneo";
+        }
+
+        else {
+            return true;
+        }
+    }
+
+    function validarTelefono() {
+        const telefono = document.getElementById("telefono").value.trim();
+        const error = document.getElementById("error-telefono");
+        error.textContent = "";
+
+        if (telefono.length > 13) {
+            error.textContent = "Demasiados dígitos";
+            return false;
+        }
+
+        if (telefono.lenght < 13) {
+            error.textContent = "Pocos dígitos";
+            return false;
+        }
+
+        if (telefono[0] !== "+" || telefono[4] !== ".") {
+            error.textContent = "Formato erróneo";
+            return false;
+        }
+
+        else {
+            return true;
+        }
+    }
+
+    function validarURL() {
+        const url = document.getElementById("url").value.trim();
+        const error = document.getElementById("error-url");
+        error.textContent = "";
+
+        if (url.length > 50) {
+            error.textContent = "Demasiados caracteres";
+            return false;
+        }
+
+        if (url.length < 4) {
+            error.textContent = "Pocos caracteres";
+            return false;
+        }
+
+        else {
+            return true;
+        }
+    }
+    </script>
+    <br>
+    <h3> ¿Qué mascotas se adoptan? </h3>
+    <br>
+    <form class="formulario-caja">
+    <label for="tipo"> Tipo de animal: </label>
+    <select id="tipo" name="tipo" required>
+        <option value="" disabled selected> Elija una opción </option>
+        <option value="perro"> Perro </option>
+        <option value="gato"> Gato </option>
+    </select>
+    <br>
+    <label> Cantidad: </label>
+    <input type="number" id="cantidad" minlength="1" name="cantidad" class="input-texto" placeholder="Escriba aquí" onblur="validarCantidad()" required>
+    <small id="error-cantidad" style="color:red"></small> 
+    <br><br>
+    <label> Edad: </label>
+    <input type="number" id="edad" minlength="1" name="edad" class="input-texto" placeholder="Escriba aquí" onblur="validarEdad()" required>
+    <small id="error-edad" style="color:red"></small>
+    <br><br>
+    <label for="medida"> Medida de la edad: </label>
+    <select id="medida" name="medida" required>
+        <option value="" disabled selected> Elija una opción </option>
+        <option value="perro"> Mes/es </option>
+        <option value="gato"> Año/s </option>
+    </select>
+    <br><br>
+    <label for="fecha"> Fecha de entrega: </label>
+    <input type="datetime-local" id="fecha" name="fecha" class="input-texto" required>
+    <small id="error-fecha" style="color:red"></small>
+    <br><br>
+    <label> Descripción: </label>
+    <input type="descripcion" id="descripcion" maxlength="500" name="nombre" class="input-texto" placeholder="Escriba aquí" required onblur="validarNombre()">
+    <small id="error-descripcion" style="color:red"></small>
+    <br><br>
+    <label>Fotografías:</label>
+    <input type="file" id="foto" class="input-texto" name="foto" accept="image/*" multiple onchange="validarFotos()" required>
+    <small id="error-foto" style="color:red"></small>
+    </form>
+    <script>
+        const ahora = new Date();
+        ahora.setHours(ahora.getHours() + 3);
+        function pad(num) {
+            return num.toString().padStart(2, "0");
+        }   
+        const fechaValor = `${ahora.getFullYear()}-${pad(ahora.getMonth()+1)}-${pad(ahora.getDate())}T${pad(ahora.getHours())}:${pad(ahora.getMinutes())}`;
+        document.getElementById("fecha").value = fechaValor;
+    </script>
+    <br>
+    <script>
+    function validarCantidad() {
+        const cantidad = document.getElementById("cantidad").value.trim();
+        const error = document.getElementById("error-cantidad");
+        error.textContent = "";
+
+        if (cantidad < 1) {
+            error.textContent = "El mínimo es 1 animal";
+            return false;
+        }
+
+        else {
+            return true;
+        }
+    }
+
+    function validarEdad() {
+        const edad = document.getElementById("edad").value.trim();
+        const error = document.getElementById("error-edad");
+        error.textContent = "";
+
+        if (edad < 1) {
+            error.textContent = "El mínimo es 1 animal";
+            return false;
+        }
+
+        else {
+            return true;
+        }
+    }
+
+    function validarDescripcion() {
+        const descripcion = document.getElementById("descripcion").value.trim();
+        const error = document.getElementById("error-descripcion");
+        error.textContent = "";
+
+        if (descripcion > 500) {
+            error.textContent = "Demasiados caracteres";
+            return false;
+        }
+
+        else {
+            return true;
+        }
+    }
+
+    function validarFotos() {
+        const input = document.getElementById("foto");
+        const error = document.getElementById("error-foto");
+        const archivos = input.files;
+        error.textContent = "";
+
+        if (archivos.length < 1) {
+        error.textContent = "Suba una imagen";
+        return false;
+        }
+
+        if (archivos.length > 5) {
+        error.textContent = "Máximo de 5 imágenes";
+        return false;
+        }
+
+        else {
+            return true;
+        }
+    }
+
+    function validarYRedirigir() {
+        console.log("validarSector:", validarSector());
+        console.log("validarNombre:", validarNombre());
+        console.log("validarCorreo:", validarCorreo());
+        console.log("validarTelefono:", validarTelefono());
+        console.log("validarURL:", validarURL());
+        console.log("validarCantidad:", validarCantidad());
+        console.log("validarDescripcion:", validarDescripcion());
+        console.log("validarEdad:", validarEdad());
+        console.log("validarFotos:", validarFotos());
+        
+        if (validarSector() &&
+            validarNombre() &&
+            validarCorreo() &&
+            validarTelefono() &&
+            validarURL() &&
+            validarCantidad() &&
+            validarDescripcion() &&
+            validarEdad() &&
+            validarFotos()) {
+            window.location.href = "agregar_aviso_confirmacion.html";
+        }
+    }
+    </script>
+<button type="button" onclick="validarYRedirigir()"> Agregar este aviso de adopción </button>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</div>
+</html>
