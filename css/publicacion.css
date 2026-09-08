@@ -1,0 +1,58 @@
+.tarjeta-publicacion {
+    display: flex;
+    gap: 2rem;
+    background-color: var(--color-superficie);
+    border-radius: var(--radio-lg);
+    padding: var(--espacio-md);
+    flex-wrap: wrap;
+    box-shadow: var(--sombra-sm);
+}
+
+.contenido-publicacion {
+    flex: 1;
+    min-width: 260px;
+    position: relative;
+}
+
+.imagen-publicacion {
+    border-radius: var(--radio-md);
+    width: 100%;
+}
+
+.insignia-reproducir {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 56px;
+    filter: drop-shadow(0 2px 6px rgba(14, 11, 6, 0.4));
+    transition: transform var(--transicion);
+}
+
+.contenido-publicacion:hover .insignia-reproducir {
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+.detalle-publicacion {
+    flex: 1;
+    min-width: 260px;
+}
+
+.sello-verificado {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 1rem 0;
+    font-size: 0.85rem;
+    color: var(--color-texto-secundario);
+}
+
+.icono-sello {
+    width: 24px;
+}
+
+@media (max-width: 640px) {
+    .tarjeta-publicacion {
+        padding: var(--espacio-sm);
+    }
+}

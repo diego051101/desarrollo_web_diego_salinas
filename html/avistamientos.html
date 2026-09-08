@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Observatorio Digital Aviario | Avistamientos</title>
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/formulario.css">
+    <link rel="stylesheet" href="../css/avistamientos.css">
+</head>
+<body>
+    <header>
+        <div class="logo-contenedor">
+            <a href="pagina_principal_sesion_iniciada.html">
+                <img src="../recursos/logo_observatorio_digital_aviario.png" alt="Logo de Observatorio Digital Aviario.">
+            </a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="pagina_principal_sesion_iniciada.html">Página principal</a> / </li>
+                <li><a href="avistamientos.html">Avistamientos</a> / </li>
+                <li><a href="metricas.html">Métricas</a> / </li>
+            </ul>
+        </nav>
+        <div class="sesion-iniciada">
+            <button>
+                <img src="../recursos/profile_picture_placeholder_1.jpg" alt="Imagen de tu perfil.">
+                <h3 class="header-nombre-usuario">Catalina López</h3>
+                <span class="icono-desplegable">↓</span>
+            </button>
+            <nav id="menu-desplegable-perfil" class="menu-perfil-oculto">
+                <a href="configuracion.html">Configuración</a>
+                <a href="pagina_principal.html">Cerrar sesión</a>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="resumen-metricas">
+            <h2 class="titulo-seccion">Resumen de la comunidad</h2>
+            <div class="contenedor-graficos">
+                <figure class="tarjeta-grafico">
+                    <figcaption>Usuarios por región</figcaption>
+                    <svg viewBox="0 0 200 120" width="200" height="120" role="img" aria-label="Gráfico de barras de usuarios por región.">
+                        <rect x="10" y="60" width="30" height="50" fill="#396A45"></rect>
+                        <rect x="55" y="30" width="30" height="80" fill="#396A45"></rect>
+                        <rect x="100" y="70" width="30" height="40" fill="#396A45"></rect>
+                        <rect x="145" y="10" width="30" height="100" fill="#396A45"></rect>
+                    </svg>
+                </figure>
+                <figure class="tarjeta-grafico">
+                    <figcaption>Avistamientos por tipo</figcaption>
+                    <svg viewBox="0 0 120 120" width="120" height="120" role="img" aria-label="Gráfico circular de avistamientos por tipo.">
+                        <circle cx="60" cy="60" r="50" fill="none" stroke="#BED784" stroke-width="20"></circle>
+                        <circle cx="60" cy="60" r="50" fill="none" stroke="#E3714F" stroke-width="20" stroke-dasharray="220 314" transform="rotate(-90 60 60)"></circle>
+                    </svg>
+                </figure>
+                <figure class="tarjeta-grafico">
+                    <figcaption>Avistamientos por región</figcaption>
+                    <svg viewBox="0 0 200 120" width="200" height="120" role="img" aria-label="Gráfico de línea de avistamientos por región.">
+                        <polyline points="10,100 50,60 90,80 130,30 170,50" fill="none" stroke="#396A45" stroke-width="4"></polyline>
+                    </svg>
+                </figure>
+            </div>
+            <div class="contenedor-boton-centrado">
+                <a href="metricas.html" class="boton-ver-mas">Ver más</a>
+            </div>
+        </section>
+        <section class="listado-avistamientos">
+            <div class="cabecera-listado">
+                <h2 class="titulo-seccion">Avistamientos</h2>
+                <button type="button" id="boton-filtro" class="boton-filtro">Filtrar ▾</button>
+            </div>
+            <form id="formulario-filtro" class="formulario" style="display: none;">
+                <div class="fila-doble">
+                    <div class="grupo-formulario">
+                        <label for="filtro-tipo">Tipo de ave <span class="texto-opcional">(opcional)</span></label>
+                        <input type="text" id="filtro-tipo" name="filtro-tipo" placeholder="Ej: Ave de presa">
+                    </div>
+                    <div class="grupo-formulario">
+                        <label for="filtro-fecha">Fecha <span class="texto-opcional">(opcional)</span></label>
+                        <input type="date" id="filtro-fecha" name="filtro-fecha">
+                    </div>
+                </div>
+                <div class="grupo-formulario">
+                    <label for="filtro-lugar">Lugar <span class="texto-opcional">(opcional)</span></label>
+                    <input type="text" id="filtro-lugar" name="filtro-lugar" placeholder="Ej: Cajón del Maipo">
+                </div>
+                <button type="button" id="boton-aplicar-filtro" class="boton-aplicar-filtro">Aplicar filtros</button>
+                <button type="button" id="boton-limpiar-filtro" class="boton-limpiar-filtro">Limpiar filtros</button>
+            </form>
+            <ul class="tabla-avistamientos">
+                <li class="fila-avistamiento" data-tipo="Ave de presa / Carroñera" data-fecha="2026-08-25" data-lugar="Cajón del Maipo">
+                    <a href="publicacion.html">
+                        <img src="../recursos/bird_placeholder_1.jpg" alt="Pájaro rojo subido a la punta de una rama.">
+                    </a>
+                    <span class="dato-nombre">Cóndor Andino</span>
+                    <span class="dato-tipo">Ave de presa / Carroñera</span>
+                    <span class="dato-lugar">Cajón del Maipo</span>
+                    <span class="dato-hora">14:30 hrs</span>
+                    <span class="dato-fecha">25/08/2026</span>
+                    <a href="perfil.html" class="dato-usuario">Catalina López</a>
+                </li>
+                <li class="fila-avistamiento" data-tipo="Ave acuática / Cazadora" data-fecha="2026-08-24" data-lugar="Humedal de Batuco">
+                    <a href="publicacion.html">
+                        <img src="../recursos/bird_placeholder_3.jpg" alt="Martín pescador posado junto al agua.">
+                    </a>
+                    <span class="dato-nombre">Martín Pescador</span>
+                    <span class="dato-tipo">Ave acuática / Cazadora</span>
+                    <span class="dato-lugar">Humedal de Batuco</span>
+                    <span class="dato-hora">17:45 hrs</span>
+                    <span class="dato-fecha">24/08/2026</span>
+                    <a href="perfil.html" class="dato-usuario">Martina Fuenzalida</a>
+                </li>
+                <li class="fila-avistamiento" data-tipo="Ave paseriforme / Cantora" data-fecha="2026-08-22" data-lugar="Parque Bicentenario">
+                    <a href="publicacion.html">
+                        <img src="../recursos/bird_placeholder_2.jpg" alt="Pájaro blanco en un entorno invernal.">
+                    </a>
+                    <span class="dato-nombre">Loica</span>
+                    <span class="dato-tipo">Ave paseriforme / Cantora</span>
+                    <span class="dato-lugar">Parque Bicentenario</span>
+                    <span class="dato-hora">09:15 hrs</span>
+                    <span class="dato-fecha">22/08/2026</span>
+                    <a href="perfil.html" class="dato-usuario">Catalina López</a>
+                </li>
+                <li class="fila-avistamiento" data-tipo="Rapaz nocturna" data-fecha="2026-08-20" data-lugar="Reserva Nacional Río Clarillo">
+                    <a href="publicacion.html">
+                        <img src="../recursos/bird_placeholder_4.jpg" alt="Búho posado en una rama seca.">
+                    </a>
+                    <span class="dato-nombre">Tucúquere</span>
+                    <span class="dato-tipo">Rapaz nocturna</span>
+                    <span class="dato-lugar">Reserva Nacional Río Clarillo</span>
+                    <span class="dato-hora">20:10 hrs</span>
+                    <span class="dato-fecha">20/08/2026</span>
+                    <a href="perfil.html" class="dato-usuario">Martina Fuenzalida</a>
+                </li>
+                <li class="fila-avistamiento" data-tipo="Ave paseriforme / Cantora" data-fecha="2026-08-18" data-lugar="Farellones">
+                    <a href="publicacion.html">
+                        <img src="../recursos/bird_placeholder_5.jpg" alt="Picaflor sobrevolando una flor.">
+                    </a>
+                    <span class="dato-nombre">Picaflor Gigante</span>
+                    <span class="dato-tipo">Ave paseriforme / Cantora</span>
+                    <span class="dato-lugar">Farellones</span>
+                    <span class="dato-hora">11:20 hrs</span>
+                    <span class="dato-fecha">18/08/2026</span>
+                    <a href="perfil.html" class="dato-usuario">Catalina López</a>
+                </li>
+            </ul>
+            <nav class="paginacion-avistamientos" aria-label="Paginación de avistamientos">
+                <a href="#">pg. 1</a>
+                <a href="#">pg. 2</a>
+                <a href="#">pg. 3</a>
+                <a href="#">pg. 4</a>
+                <span>…</span>
+                <a href="#">pg. 7</a>
+                <a href="#">pg. 8</a>
+                <a href="#">pg. 9</a>
+                <a href="#">pg. 10</a>
+            </nav>
+        </section>
+    </main>
+    <footer>
+        <div class="footer-contenedor">
+            <div class="footer-logo">
+                <a href="pagina_principal_sesion_iniciada.html">
+                    <img src="../recursos/logo_observatorio_digital_aviario_white.png" alt="Logo blanco de Observatorio Digital Aviario.">
+                </a>
+            </div>
+            <div class="footer-contacto">
+                <p class="linea-contacto">
+                    <span class="icono-correo" aria-hidden="true">✉</span>
+                    <a href="mailto:contacto@oda.cl">contacto@observatorioaviario.cl</a>
+                </p>
+                <p class="linea-contacto">
+                    <a href="https://wa.me/56912345678">
+                        <img src="../recursos/icon_whatsapp_black.png" alt="WhatsApp">
+                    </a>
+                    <a href="tel:+56912345678">+56 9 1234 5678</a>
+                </p>
+            </div>
+            <div class="footer-redes">
+                <h3>¡Síguenos en nuestras redes!</h3>
+                <div class="iconos-redes">
+                    <a href="https://instagram.com">
+                        <img src="../recursos/icon_instagram_black.png" alt="Síguenos en Instagram.">
+                    </a>
+                    <a href="https://youtube.com">
+                        <img src="../recursos/icon_youtube_black.png" alt="Síguenos en YouTube.">
+                    </a>
+                    <a href="https://facebook.com">
+                        <img src="../recursos/icon_facebook_black.png" alt="Síguenos en Facebook.">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-legal">
+            <p>&copy; Todos los derechos reservados 2026.</p>
+        </div>
+    </footer>
+    <script src="../js/avistamientos.js"></script>
+</body>
+</html>

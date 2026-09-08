@@ -1,0 +1,34 @@
+.bloque-metricas {
+    background-color: var(--color-superficie);
+    border-radius: var(--radio-md);
+    padding: var(--espacio-md);
+    margin-bottom: 2rem;
+    box-shadow: var(--sombra-sm);
+}
+
+.bloque-metricas h3 {
+    margin-top: 0;
+}
+
+.lista-top-publicaciones {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.lista-top-publicaciones a {
+    display: block;
+    background-color: var(--color-fondo);
+    border-radius: var(--radio-sm);
+    padding: 0.65rem 1rem;
+    transition: transform var(--transicion), box-shadow var(--transicion);
+}
+
+.lista-top-publicaciones a:hover {
+    transform: translateX(4px);
+    box-shadow: var(--sombra-sm);
+    text-decoration: none;
+}

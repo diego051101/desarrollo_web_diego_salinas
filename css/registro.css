@@ -1,0 +1,26 @@
+main {
+    background-color: var(--color-superficie);
+    border-radius: var(--radio-lg);
+    text-align: center;
+    box-shadow: var(--sombra-sm);
+}
+
+.boton-volver-principal {
+    padding: 0.5rem 1.1rem;
+    border: 2px solid var(--color-principal);
+    border-radius: var(--radio-sm);
+    font-weight: 600;
+    transition: background-color var(--transicion), color var(--transicion), transform var(--transicion);
+}
+
+.boton-volver-principal:hover {
+    background-color: var(--color-principal);
+    color: var(--color-fondo);
+    text-decoration: none;
+    transform: translateY(-1px);
+}
+
+.formulario {
+    margin-top: 1.5rem;
+    text-align: left;
+}

@@ -1,0 +1,98 @@
+.tarjeta-perfil, .tarjeta-configuracion {
+    background-color: var(--color-superficie);
+    border-radius: var(--radio-lg);
+    padding: var(--espacio-lg);
+    max-width: 700px;
+    margin: 0 auto;
+    box-shadow: var(--sombra-sm);
+}
+
+.perfil-cabecera {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.foto-perfil {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: var(--sombra-sm);
+}
+
+.fecha-ingreso {
+    color: var(--color-texto-secundario);
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+.perfil-estadisticas {
+    margin: 1.5rem 0;
+}
+
+.perfil-estadisticas p {
+    margin: 0 0 0.35rem 0;
+}
+
+.dato-numero {
+    font-weight: 700;
+    color: var(--color-principal);
+}
+
+.zona-acciones-perfil {
+    margin-bottom: 1.5rem;
+}
+
+.cuadricula-imagenes {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 0.75rem;
+    list-style: none;
+    margin: 1rem 0;
+    padding: 0;
+}
+
+.tarjeta-imagen img {
+    border-radius: var(--radio-sm);
+    height: 140px;
+    object-fit: cover;
+    width: 100%;
+    transition: transform var(--transicion), box-shadow var(--transicion);
+}
+
+.tarjeta-imagen img:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--sombra-md);
+}
+
+.caja-contrasena {
+    margin-top: 1.5rem;
+    border-top: 1px solid rgba(14, 11, 6, 0.15);
+    padding-top: 1rem;
+}
+
+.titulo-desplegable {
+    cursor: pointer;
+    font-weight: 700;
+    display: flex;
+    justify-content: space-between;
+    border-radius: var(--radio-sm);
+    padding: 0.4rem;
+    transition: background-color var(--transicion);
+}
+
+.titulo-desplegable:hover {
+    background-color: rgba(14, 11, 6, 0.06);
+}
+
+@media (max-width: 640px) {
+    .tarjeta-perfil, .tarjeta-configuracion {
+        padding: var(--espacio-md);
+    }
+
+    .perfil-cabecera {
+        flex-direction: column;
+        text-align: center;
+    }
+}

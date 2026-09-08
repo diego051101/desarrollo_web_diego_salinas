@@ -1,0 +1,46 @@
+----- Enunciado Tarea 1 -----
+
+Concepto: Sitio web de registro de aves en Chile con la Unión de Ornitólogos de Chile.
+Detalle: Sistema que gestiona avistamientos de aves reportados voluntariamente.
+
+Requerimientos:
+1) Formulario solicitando datos de la persona (nombre y apellido, correo electrónico, código postal, región y comuna).
+2) Registro de avistamientos para usuarios registrados en el sitio web, que incluye: tipo, nombre, lugar, fecha, hora y imagen/video del encuentro.
+3) Listado de avistamientos con filtros por tipo de ave, fecha, lugar. Tiene formato de múltiples páginas.
+4) Indicadores/métricas sobre usuarios y avistamientos registrados.
+*) Uso de HTML (HTML5), CSS (CSS3) y JS.
+*) Cada campo aclara si es obligatorio u opcional.
+*) No hay uso excesivo de <div>.
+*) Se definen reglas de validación de datos.
+*) La entrega es por GitHub en repositorio "desarrollo_web_diego_salinas" (branch "Tarea 1"). Debe contener un README.
+*) La entrega también es por zip adjunto en U-Cursos.
+
+----- Nombre, logo, paleta de colores, tipografías -----
+
+Nombre: "Observatorio Digital Aviario".
+
+Logo: pájaro formado por: lupa, mouse, dos cursores y un grafo.
+
+Paleta de colores: 
+1) Fondo:       #FBF7EF (crema)
+2) Superficies: #BED784 (verde claro)
+3) Texto:       #0E0B06 (marrón oscuro)
+4) Principal:   #396A45 (verde profundo)
+5) Acento:      #E3714F (naranjo claro)
+
+Tipografías:
+1) Títulos: Amaranth
+2) Texto: Open Sans
+
+*) Paleta de 5 colores siguiendo regla 60-30-10 de UI/UX web.
+*) Colores rojo, verde, negro, blanco y grises no son parte de la paleta pero se pueden usar (alertas, validaciones, etcétera).
+*) La paleta de colores concuerda con colores de la naturaleza (verde, marrón).
+
+----- Elementos básicos sitio web -----
+
+- Header: cabecera con marca, navegación y controles globales del usuario.
+- Hero: título principal, imagen/video y llamado a la acción.
+- Main: contenedor de todo el contenido central.
+- Article: bloque temático independiente en el Main.
+- Aside: barra lateral complementaria.
+- Footer: cierre de página con enlaces y contacto.

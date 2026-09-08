@@ -1,0 +1,128 @@
+.resumen-metricas {
+    margin-bottom: 3rem;
+}
+
+.resumen-metricas .fila-doble {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.cabecera-listado {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.boton-filtro {
+    background-color: var(--color-principal);
+    color: var(--color-fondo);
+    border: none;
+    border-radius: var(--radio-sm);
+    padding: 0.55rem 1.1rem;
+    font-weight: 600;
+    transition: background-color var(--transicion);
+}
+
+.boton-filtro:hover {
+    background-color: var(--color-principal-hover);
+}
+
+.boton-aplicar-filtro, .boton-limpiar-filtro {
+    align-self: flex-start;
+    margin-right: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: var(--radio-sm);
+    background-color: var(--color-principal);
+    color: var(--color-fondo);
+    font-weight: 600;
+    transition: background-color var(--transicion), transform var(--transicion);
+}
+
+.boton-aplicar-filtro:hover {
+    background-color: var(--color-principal-hover);
+    transform: translateY(-1px);
+}
+
+.boton-limpiar-filtro {
+    background-color: var(--color-acento);
+    color: var(--color-texto);
+}
+
+.boton-limpiar-filtro:hover {
+    background-color: var(--color-acento-hover);
+    color: var(--color-fondo);
+    transform: translateY(-1px);
+}
+
+.tabla-avistamientos {
+    list-style: none;
+    margin: 1.5rem 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.fila-avistamiento {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background-color: var(--color-superficie);
+    border-radius: var(--radio-md);
+    padding: 0.75rem 1rem;
+    flex-wrap: wrap;
+    box-shadow: var(--sombra-sm);
+    transition: box-shadow var(--transicion), transform var(--transicion);
+}
+
+.fila-avistamiento:hover {
+    box-shadow: var(--sombra-hover);
+    transform: translateY(-2px);
+}
+
+.fila-avistamiento img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: var(--radio-sm);
+}
+
+.dato-usuario {
+    margin-left: auto;
+    font-weight: 600;
+}
+
+.paginacion-avistamientos {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.paginacion-avistamientos a, .paginacion-avistamientos span {
+    padding: 0.4rem 0.75rem;
+    border: 1px solid var(--color-principal);
+    border-radius: var(--radio-sm);
+    transition: background-color var(--transicion), color var(--transicion);
+}
+
+.paginacion-avistamientos a:hover {
+    background-color: var(--color-principal);
+    color: var(--color-fondo);
+    text-decoration: none;
+}
+
+@media (max-width: 640px) {
+    .fila-avistamiento {
+        justify-content: center;
+        text-align: center;
+    }
+
+    .dato-usuario {
+        margin-left: 0;
+        width: 100%;
+    }
+}

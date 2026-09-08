@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Observatorio Digital Aviario | Perfil de usuario </title>
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/perfil.css">
+</head>
+<body>
+    <header>
+        <div class="logo-contenedor">
+            <a href="pagina_principal_sesion_iniciada.html">
+                <img src="../recursos/logo_observatorio_digital_aviario.png" alt="Logo de Observatorio Digital Aviario.">
+            </a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="pagina_principal_sesion_iniciada.html">Página principal</a> / </li>
+                <li><a href="avistamientos.html">Avistamientos</a> / </li>
+                <li><a href="metricas.html">Métricas</a> / </li>
+            </ul>
+        </nav>
+        <div class="sesion-iniciada">
+            <button>
+                <img src="../recursos/profile_picture_placeholder_1.jpg" alt="Imagen de tu perfil."> 
+                <h3 class="header-nombre-usuario">Catalina López</h3>
+                <span class="icono-desplegable">↓</span>
+            </button>
+            <nav id="menu-desplegable-perfil" class="menu-perfil-oculto">
+                <a href="configuracion.html">Configuración</a>
+                <a href="pagina_principal.html">Cerrar sesión</a>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="tarjeta-perfil">
+            <header class="perfil-cabecera">
+                <img src="../recursos/profile_picture_placeholder_2.jpg" alt="Tu imagen de perfil." class="foto-perfil">
+                <div class="perfil-info-basica">
+                    <h2>Martina Fuenzalida</h2>
+                    <p class="fecha-ingreso">Se unió el 27/01/2026.</p> 
+                </div>
+            </header>
+            <div class="perfil-estadisticas">
+                <p>Número de publicaciones: <span class="dato-numero">10</span></p>
+                <p>Número de likes: <span class="dato-numero">103</span></p>
+            </div>
+            <div class="zona-acciones-perfil">
+                <button type="button" id="boton-reportar" class="boton-advertencia">
+                    <img src="../recursos/icon_flag.png" alt="" class="icono-accion">
+                    <span>Reportar a este usuario.</span>
+                </button>
+            </div>
+            <div class="cuadricula-avistamientos">
+                <h3>Publicaciones</h3>
+                <ul class="cuadricula-imagenes">
+                    <li class="tarjeta-imagen">
+                        <img src="../recursos/bird_placeholder_1.jpg" alt="Pájaro rojo subido a la punta de una rama.">
+                    </li>
+                    <li class="tarjeta-imagen">
+                        <img src="../recursos/bird_placeholder_2.jpg" alt="Pájaro blanco en un entorno invernal.">
+                    </li>
+                    <li class="tarjeta-imagen">
+                        <img src="../recursos/bird_placeholder_3.jpg" alt="Lechuza sobre palo en entorno musgoso.">
+                    </li>
+                </ul>
+                <div class="contenedor-boton-centrado">
+                    <button type="button" class="boton-ver-mas">Ver más</button>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="footer-contenedor">
+            <div class="footer-logo">
+                <a href="pagina_principal_sesion_iniciada.html">
+                    <img src="../recursos/logo_observatorio_digital_aviario_white.png" alt="Logo blanco de Observatorio Digital Aviario.">
+                </a>
+            </div>
+            <div class="footer-contacto">
+                <p class="linea-contacto">
+                    <span class="icono-correo" aria-hidden="true">✉</span>
+                    <a href="mailto:contacto@oda.cl">contacto@observatorioaviario.cl</a>
+                </p>
+                <p class="linea-contacto">
+                    <a href="https://wa.me/56912345678">
+                        <img src="../recursos/icon_whatsapp_black.png" alt="WhatsApp">
+                    </a>
+                    <a href="tel:+56912345678">+56 9 1234 5678</a>
+                </p>
+            </div>
+            <div class="footer-redes">
+                <h3>¡Síguenos en nuestras redes!</h3>
+                <div class="iconos-redes">
+                    <a href="https://instagram.com">
+                        <img src="../recursos/icon_instagram_black.png" alt="Síguenos en Instagram.">
+                    </a>
+                    <a href="https://youtube.com">
+                        <img src="../recursos/icon_youtube_black.png" alt="Síguenos en YouTube.">
+                    </a>
+                    <a href="https://facebook.com">
+                        <img src="../recursos/icon_facebook_black.png" alt="Síguenos en Facebook.">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-legal">
+            <p>&copy; Todos los derechos reservados 2026.</p>
+        </div>
+    </footer>
+    <script src="../js/perfil.js"></script>
+</body>
+</html>
