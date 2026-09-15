@@ -20,6 +20,10 @@ main {
     transform: translateY(-1px);
 }
 
+.boton-volver-principal:active {
+    transform: translateY(0);
+}
+
 .formulario {
     margin-top: 1.5rem;
     text-align: left;

@@ -48,7 +48,7 @@
 }
 
 .icono-sello {
-    width: 24px;
+    width: var(--icono-md);
 }
 
 @media (max-width: 640px) {

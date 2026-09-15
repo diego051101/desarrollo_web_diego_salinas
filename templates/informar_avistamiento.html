@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block titulo %}Informar avistamiento{% endblock %}
+
+{% block css_extra %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/formulario.css') }}">
+{% endblock %}
+
+{% block contenido %}
+    <h2 class="titulo-seccion">¡Publica tu hallazgo!</h2>
+    <form method="POST" class="formulario" id="formulario-avistamiento" enctype="multipart/form-data" novalidate>
+        <div class="grupo-formulario {{ 'con-error' if errores.voluntario }}">
+            <label for="voluntario">Voluntario <span class="texto-rojo">*</span></label>
+            <select id="voluntario" name="voluntario" required>
+                <option value="" disabled {{ 'selected' if not valores.voluntario }}>Seleccione quién informa...</option>
+                {% for voluntario in voluntarios %}
+                    <option value="{{ voluntario.id }}" {{ 'selected' if valores.voluntario == voluntario.id|string }}>{{ voluntario.nombre }}</option>
+                {% endfor %}
+            </select>
+            {% if errores.voluntario %}<span class="mensaje-error-campo">{{ errores.voluntario }}</span>{% endif %}
+            {% if not voluntarios %}
+                <small class="texto-ayuda">Todavía no hay voluntarios registrados — <a href="{{ url_for('nuevo_voluntario') }}">regístrate primero</a>.</small>
+            {% endif %}
+        </div>
+        <div class="fila-doble">
+            <div class="grupo-formulario {{ 'con-error' if errores.ave }}">
+                <label for="ave">Ave <span class="texto-rojo">*</span></label>
+                <select id="ave" name="ave" required>
+                    <option value="" disabled {{ 'selected' if not valores.ave }}>Seleccione el ave...</option>
+                    {% for ave in aves %}
+                        <option value="{{ ave.id }}" {{ 'selected' if valores.ave == ave.id|string }}>{{ ave.nombre }}</option>
+                    {% endfor %}
+                </select>
+                {% if errores.ave %}<span class="mensaje-error-campo">{{ errores.ave }}</span>{% endif %}
+            </div>
+            <div class="grupo-formulario {{ 'con-error' if errores.lugar }}">
+                <label for="lugar">Lugar del encuentro <span class="texto-rojo">*</span></label>
+                <input type="text" id="lugar" name="lugar" placeholder="Ej: Cajón del Maipo" value="{{ valores.lugar or '' }}" required>
+                {% if errores.lugar %}<span class="mensaje-error-campo">{{ errores.lugar }}</span>{% endif %}
+            </div>
+        </div>
+        <div class="fila-doble">
+            <div class="grupo-formulario-mitad {{ 'con-error' if errores.fecha }}">
+                <label for="fecha-ave">Fecha del encuentro <span class="texto-rojo">*</span></label>
+                <input type="date" id="fecha-ave" name="fecha" value="{{ valores.fecha or '' }}" required>
+            </div>
+            <div class="grupo-formulario-mitad">
+                <label for="hora-ave">Hora del encuentro <span class="texto-rojo">*</span></label>
+                <input type="time" id="hora-ave" name="hora" value="{{ valores.hora or '' }}" required>
+            </div>
+        </div>
+        {% if errores.fecha %}<span class="mensaje-error-campo">{{ errores.fecha }}</span>{% endif %}
+        <div class="grupo-formulario {{ 'con-error' if errores.descripcion }}">
+            <label for="descripcion">Descripción <span class="texto-opcional">(opcional)</span></label>
+            <textarea id="descripcion" name="descripcion" rows="4" maxlength="500" placeholder="Detalles adicionales del encuentro...">{{ valores.descripcion or '' }}</textarea>
+            {% if errores.descripcion %}<span class="mensaje-error-campo">{{ errores.descripcion }}</span>{% endif %}
+        </div>
+        <div class="grupo-archivo {{ 'con-error' if errores.archivos }}">
+            <label for="archivos">Adjuntar fotografías o videos <span class="texto-rojo">*</span></label>
+            <input type="file" id="archivos" name="archivos" accept="image/*, video/*" multiple required class="input-adjuntar">
+            <small class="texto-ayuda">Formatos permitidos: JPG, PNG o MP4. Peso máximo por archivo: 5 MB. Puedes elegir más de uno.</small>
+            {% if errores.archivos %}<span class="mensaje-error-campo">{{ errores.archivos }}</span>{% endif %}
+        </div>
+        <button type="submit" class="boton-formulario-avistamiento">Enviar</button>
+    </form>
+{% endblock %}
+
+{% block js_extra %}
+    <script src="{{ url_for('static', filename='js/registrar_avistamiento.js') }}"></script>
+{% endblock %}

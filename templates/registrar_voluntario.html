@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block titulo %}Registrar voluntario{% endblock %}
+
+{% block css_extra %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/formulario.css') }}">
+{% endblock %}
+
+{% block contenido %}
+    <h2 class="titulo-seccion">Sé parte de nuestra comunidad</h2>
+
+    {% if voluntario_creado %}
+        <div class="formulario" style="text-align: center;">
+            <p>¡Listo, {{ voluntario_creado.nombre }}! Tu registro quedó guardado.</p>
+            <p>¿Qué quieres hacer ahora?</p>
+            <div class="acciones-siguiente-paso">
+                <a href="{{ url_for('nuevo_avistamiento', voluntario_id=voluntario_creado.id) }}" class="boton-ver-mas">Registrar un avistamiento</a>
+                <a href="{{ url_for('portada') }}" class="boton-ver-mas">Ir a la portada</a>
+            </div>
+        </div>
+    {% else %}
+        <form method="POST" class="formulario" id="formulario-registro" novalidate>
+            <div class="fila-doble">
+                <div class="grupo-formulario {{ 'con-error' if errores.nombre }}">
+                    <label for="nombre">Nombre <span class="texto-rojo">*</span></label>
+                    <input type="text" id="nombre" name="nombre" placeholder="José" value="{{ valores.nombre or '' }}" required>
+                    {% if errores.nombre %}<span class="mensaje-error-campo">{{ errores.nombre }}</span>{% endif %}
+                </div>
+                <div class="grupo-formulario {{ 'con-error' if errores.apellido }}">
+                    <label for="apellido">Apellido <span class="texto-rojo">*</span></label>
+                    <input type="text" id="apellido" name="apellido" placeholder="Urzúa" value="{{ valores.apellido or '' }}" required>
+                    {% if errores.apellido %}<span class="mensaje-error-campo">{{ errores.apellido }}</span>{% endif %}
+                </div>
+            </div>
+            <div class="grupo-formulario {{ 'con-error' if errores.correo }}">
+                <label for="correo">Correo electrónico <span class="texto-rojo">*</span></label>
+                <input type="email" id="correo" name="correo" placeholder="ejemplo@correo.com" value="{{ valores.correo or '' }}" maxlength="80" required>
+                {% if errores.correo %}<span class="mensaje-error-campo">{{ errores.correo }}</span>{% endif %}
+            </div>
+            <div class="grupo-formulario {{ 'con-error' if errores.telefono }}">
+                <label for="telefono">Teléfono <span class="texto-rojo">*</span></label>
+                <input type="tel" id="telefono" name="telefono" placeholder="+56912345678" value="{{ valores.telefono or '' }}" required>
+                {% if errores.telefono %}<span class="mensaje-error-campo">{{ errores.telefono }}</span>{% endif %}
+            </div>
+            <div class="fila-doble">
+                <div class="grupo-formulario">
+                    <label for="region">Región <span class="texto-rojo">*</span></label>
+                    <select id="region" name="region" required>
+                        <option value="" disabled {{ 'selected' if not valores.region }}>Seleccione región...</option>
+                        {% for region in regiones %}
+                            <option value="{{ region.id }}" {{ 'selected' if valores.region == region.id|string }}>{{ region.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="grupo-formulario {{ 'con-error' if errores.comuna }}">
+                    <label for="comuna">Comuna <span class="texto-rojo">*</span></label>
+                    <select id="comuna" name="comuna" required {{ 'disabled' if not valores.region }}>
+                        <option value="" disabled selected>{{ 'Seleccione comuna...' if valores.region else 'Primero seleccione región...' }}</option>
+                    </select>
+                    {% if errores.comuna %}<span class="mensaje-error-campo">{{ errores.comuna }}</span>{% endif %}
+                </div>
+            </div>
+            <button type="submit" class="boton-formulario-registro">Enviar</button>
+        </form>
+    {% endif %}
+{% endblock %}
+
+{% block js_extra %}
+    <script>
+        const comunasPorRegion = {{ comunas_por_region | tojson }};
+        const regionSeleccionadaAlCargar = {{ (valores.region or "") | tojson }};
+        const comunaSeleccionadaAlCargar = {{ (valores.comuna or "") | tojson }};
+    </script>
+    <script src="{{ url_for('static', filename='js/registrar_voluntario.js') }}"></script>
+{% endblock %}

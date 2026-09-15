@@ -1,0 +1,55 @@
+/* Exclusivo de la portada de la Tarea 2: tarjetas del menú principal y
+   resumen de los últimos avistamientos. Reutiliza .contenedor-graficos
+   (global.css) como grilla contenedora en vez de inventar otra. */
+
+.tarjeta-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    background-color: var(--color-superficie);
+    border-radius: var(--radio-md);
+    padding: var(--espacio-md);
+    box-shadow: var(--sombra-sm);
+    transition: transform var(--transicion) var(--easing-estandar), box-shadow var(--transicion) var(--easing-estandar);
+}
+
+.tarjeta-menu:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--sombra-hover);
+    text-decoration: none;
+}
+
+.tarjeta-menu h3 {
+    margin: 0;
+}
+
+.tarjeta-menu p {
+    margin: 0;
+    color: var(--color-texto-secundario);
+    font-size: 0.9rem;
+}
+
+.lista-resumen-avistamientos {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.item-resumen-avistamiento {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    background-color: var(--color-superficie);
+    border-radius: var(--radio-md);
+    padding: 0.75rem 1rem;
+    box-shadow: var(--sombra-sm);
+}
+
+.item-resumen-avistamiento a {
+    font-weight: 600;
+}

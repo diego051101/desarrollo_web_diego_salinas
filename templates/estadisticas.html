@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block titulo %}Estadísticas{% endblock %}
+
+{% block contenido %}
+    <h2 class="titulo-seccion">Estadísticas</h2>
+    <p style="text-align: center;">
+        Los indicadores y métricas de la comunidad quedarán disponibles en la próxima tarea del curso.
+    </p>
+    <div class="contenedor-boton-centrado">
+        <a href="{{ url_for('portada') }}" class="boton-ver-mas">Volver a la portada</a>
+    </div>
+{% endblock %}

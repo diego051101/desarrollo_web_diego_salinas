@@ -4,15 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Observatorio Digital Aviario | Inicio de sesión</title>
+    <link rel="icon" type="image/webp" href="../recursos/icon_observatorio_digital_aviario.webp">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Observatorio Digital Aviario | Inicio de sesión">
+    <meta property="og:description" content="Registra y descubre avistamientos de aves de Chile junto a la comunidad del Observatorio Digital Aviario, en conjunto con la Unión de Ornitólogos de Chile.">
+    <meta property="og:image" content="../recursos/og_logo_observatorio_aviario.webp">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Observatorio Digital Aviario | Inicio de sesión">
+    <meta name="twitter:description" content="Registra y descubre avistamientos de aves de Chile junto a la comunidad del Observatorio Digital Aviario, en conjunto con la Unión de Ornitólogos de Chile.">
+    <meta name="twitter:image" content="../recursos/og_logo_observatorio_aviario.webp">
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/formulario.css">
     <link rel="stylesheet" href="../css/registro.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
 </head>
 <body>
     <header>
         <div class="logo-contenedor">
             <a href="pagina_principal.html">
-                <img src="../recursos/logo_observatorio_digital_aviario.png" alt="Logo de Observatorio Digital Aviario.">
+                <img src="../recursos/logo_observatorio_digital_aviario.webp" alt="Logo de Observatorio Digital Aviario.">
             </a>
         </div>
         <a href="pagina_principal.html" class="boton-volver-principal">Volver a la página principal</a>
@@ -41,17 +53,21 @@
         <div class="footer-contenedor">
             <div class="footer-logo">
                 <a href="pagina_principal.html">
-                    <img src="../recursos/logo_observatorio_digital_aviario_white.png" alt="Logo blanco de Observatorio Digital Aviario.">
+                    <img src="../recursos/logo_observatorio_digital_aviario_white.webp" alt="Logo blanco de Observatorio Digital Aviario.">
                 </a>
             </div>
             <div class="footer-contacto">
+                <h3>¡Contáctanos!</h3>
                 <p class="linea-contacto">
-                    <span class="icono-correo" aria-hidden="true">✉</span>
+                    <svg class="icono-correo icono-md" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+                        <path d="M3 7l9 6 9-6"></path>
+                    </svg>
                     <a href="mailto:contacto@oda.cl">contacto@observatorioaviario.cl</a>
                 </p>
                 <p class="linea-contacto">
                     <a href="https://wa.me/56912345678">
-                        <img src="../recursos/icon_whatsapp_black.png" alt="WhatsApp">
+                        <img src="../recursos/icon_whatsapp_black.webp" alt="WhatsApp">
                     </a>
                     <a href="tel:+56912345678">+56 9 1234 5678</a>
                 </p>
@@ -60,21 +76,23 @@
                 <h3>¡Síguenos en nuestras redes!</h3>
                 <div class="iconos-redes">
                     <a href="https://instagram.com">
-                        <img src="../recursos/icon_instagram_black.png" alt="Síguenos en Instagram.">
+                        <img src="../recursos/icon_instagram_black.webp" alt="Síguenos en Instagram.">
                     </a>
                     <a href="https://youtube.com">
-                        <img src="../recursos/icon_youtube_black.png" alt="Síguenos en YouTube.">
+                        <img src="../recursos/icon_youtube_black.webp" alt="Síguenos en YouTube.">
                     </a>
                     <a href="https://facebook.com">
-                        <img src="../recursos/icon_facebook_black.png" alt="Síguenos en Facebook.">
+                        <img src="../recursos/icon_facebook_black.webp" alt="Síguenos en Facebook.">
                     </a>
                 </div>
             </div>
         </div>
         <div class="footer-legal">
-            <p>&copy; Todos los derechos reservados 2026.</p>
+            <p>&copy; Todos los derechos reservados <span id="anio-actual">2026</span>.</p>
         </div>
     </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="../js/navegacion_global.js"></script>
     <script src="../js/inicio_sesion.js"></script>
 </body>
 </html>

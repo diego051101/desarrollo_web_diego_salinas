@@ -16,6 +16,9 @@
 }
 
 .boton-filtro {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
     background-color: var(--color-principal);
     color: var(--color-fondo);
     border: none;
@@ -25,13 +28,22 @@
     transition: background-color var(--transicion);
 }
 
+.boton-filtro svg {
+    width: var(--icono-xs);
+    height: var(--icono-xs);
+}
+
 .boton-filtro:hover {
     background-color: var(--color-principal-hover);
 }
 
+.fila-botones-filtro {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
 .boton-aplicar-filtro, .boton-limpiar-filtro {
-    align-self: flex-start;
-    margin-right: 0.5rem;
     padding: 0.6rem 1.2rem;
     border: none;
     border-radius: var(--radio-sm);
@@ -44,6 +56,10 @@
 .boton-aplicar-filtro:hover {
     background-color: var(--color-principal-hover);
     transform: translateY(-1px);
+}
+
+.boton-aplicar-filtro:active, .boton-limpiar-filtro:active, .boton-filtro:active {
+    transform: translateY(0);
 }
 
 .boton-limpiar-filtro {
@@ -67,15 +83,15 @@
 }
 
 .fila-avistamiento {
-    display: flex;
+    display: grid;
+    grid-template-columns: 70px 1.1fr 1fr 1fr 0.7fr 0.9fr 1fr;
     align-items: center;
     gap: 1rem;
     background-color: var(--color-superficie);
     border-radius: var(--radio-md);
     padding: 0.75rem 1rem;
-    flex-wrap: wrap;
     box-shadow: var(--sombra-sm);
-    transition: box-shadow var(--transicion), transform var(--transicion);
+    transition: box-shadow var(--transicion) var(--easing-estandar), transform var(--transicion) var(--easing-estandar);
 }
 
 .fila-avistamiento:hover {
@@ -91,7 +107,7 @@
 }
 
 .dato-usuario {
-    margin-left: auto;
+    text-align: right;
     font-weight: 600;
 }
 
@@ -115,14 +131,20 @@
     text-decoration: none;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 700px) {
     .fila-avistamiento {
-        justify-content: center;
-        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    .fila-avistamiento img {
+        width: 100%;
+        height: 160px;
     }
 
     .dato-usuario {
-        margin-left: 0;
-        width: 100%;
+        text-align: left;
     }
 }

@@ -76,6 +76,7 @@
     cursor: pointer;
     font-weight: 700;
     display: flex;
+    align-items: center;
     justify-content: space-between;
     border-radius: var(--radio-sm);
     padding: 0.4rem;
@@ -84,6 +85,17 @@
 
 .titulo-desplegable:hover {
     background-color: rgba(14, 11, 6, 0.06);
+}
+
+.icono-flecha {
+    width: var(--icono-xs);
+    height: var(--icono-xs);
+    flex-shrink: 0;
+    transition: transform var(--transicion-rapida) var(--easing-estandar);
+}
+
+.caja-contrasena[open] .icono-flecha {
+    transform: rotate(180deg);
 }
 
 @media (max-width: 640px) {

@@ -32,3 +32,7 @@
     box-shadow: var(--sombra-sm);
     text-decoration: none;
 }
+
+.lista-top-publicaciones a:active {
+    transform: translateX(1px);
+}

@@ -1,0 +1,13 @@
+# Entorno virtual de Python (se recrea con: pip install -r requirements.txt)
+venv/
+__pycache__/
+*.pyc
+
+# Archivos subidos por los usuarios (fotos/videos de avistamientos) — no
+# deben versionarse, se generan en tiempo de ejecución.
+static/uploads/*
+!static/uploads/.gitkeep
+
+# Bases de datos locales de prueba, si alguna vez se usa SQLite en desarrollo.
+*.db
+*.sqlite3

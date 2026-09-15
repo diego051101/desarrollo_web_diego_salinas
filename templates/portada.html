@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block titulo %}Portada{% endblock %}
+
+{% block css_extra %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/portada.css') }}">
+{% endblock %}
+
+{% block contenido %}
+    <h1 class="titulo-seccion">¡Bienvenido/a al Observatorio Digital Aviario!</h1>
+    <p style="text-align: center;">
+        Aquí puedes registrarte como voluntario, informar un avistamiento y revisar los que ya
+        reportó la comunidad.
+    </p>
+
+    <section>
+        <h2 class="titulo-seccion">¿Qué quieres hacer?</h2>
+        <div class="contenedor-graficos">
+            <a class="tarjeta-menu" href="{{ url_for('nuevo_voluntario') }}">
+                <h3>Registrar voluntario</h3>
+                <p>Crea tu registro para poder informar avistamientos.</p>
+            </a>
+            <a class="tarjeta-menu" href="{{ url_for('nuevo_avistamiento') }}">
+                <h3>Informar avistamiento</h3>
+                <p>Reporta un ave que hayas observado, con fotos o videos.</p>
+            </a>
+            <a class="tarjeta-menu" href="{{ url_for('listado_avistamientos') }}">
+                <h3>Listado de avistamientos</h3>
+                <p>Revisa todos los avistamientos registrados por la comunidad.</p>
+            </a>
+            <a class="tarjeta-menu" href="{{ url_for('estadisticas') }}">
+                <h3>Estadísticas</h3>
+                <p>Indicadores y métricas de la comunidad (próximamente).</p>
+            </a>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="titulo-seccion">Últimos avistamientos</h2>
+        {% if ultimos_avistamientos %}
+            <ul class="lista-resumen-avistamientos">
+                {% for avistamiento in ultimos_avistamientos %}
+                    <li class="item-resumen-avistamiento">
+                        <span>
+                            <strong>{{ avistamiento.ave.nombre }}</strong>
+                            — {{ avistamiento.lugar }}
+                            — {{ avistamiento.fecha_hora.strftime("%d/%m/%Y %H:%M") }}
+                            — reportado por {{ avistamiento.voluntario.nombre }}
+                        </span>
+                        <a href="{{ url_for('detalle_avistamiento', avistamiento_id=avistamiento.id) }}">Ver detalle</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p style="text-align: center;">Todavía no hay avistamientos registrados.</p>
+        {% endif %}
+        <div class="contenedor-boton-centrado">
+            <a href="{{ url_for('listado_avistamientos') }}" class="boton-ver-mas">Ver todos</a>
+        </div>
+    </section>
+{% endblock %}

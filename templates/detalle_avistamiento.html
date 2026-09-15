@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block titulo %}{{ avistamiento.ave.nombre }}{% endblock %}
+
+{% block css_extra %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/publicacion.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/perfil.css') }}">
+{% endblock %}
+
+{% block contenido %}
+    <article class="tarjeta-publicacion">
+        <div class="contenido-publicacion">
+            {% if avistamiento.registros %}
+                <ul class="cuadricula-imagenes">
+                    {% for registro in avistamiento.registros %}
+                        <li class="tarjeta-imagen">
+                            {% if registro.es_video %}
+                                <video src="{{ url_for('static', filename=registro.ruta_relativa) }}" controls></video>
+                            {% else %}
+                                <img src="{{ url_for('static', filename=registro.ruta_relativa) }}" alt="Evidencia del avistamiento de {{ avistamiento.ave.nombre }}.">
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Este avistamiento no tiene fotos o videos adjuntos.</p>
+            {% endif %}
+        </div>
+        <aside class="detalle-publicacion">
+            <h2>{{ avistamiento.ave.nombre }}</h2>
+            <p>Reportado por <strong>{{ avistamiento.voluntario.nombre }}</strong></p>
+            <p>{{ avistamiento.lugar }}</p>
+            <p>{{ avistamiento.fecha_hora.strftime("%H:%M") }} hrs, {{ avistamiento.fecha_hora.strftime("%d/%m/%Y") }}</p>
+            {% if avistamiento.descripcion %}
+                <p>{{ avistamiento.descripcion }}</p>
+            {% endif %}
+        </aside>
+    </article>
+    <div class="contenedor-boton-centrado">
+        <a href="{{ url_for('listado_avistamientos') }}" class="boton-ver-mas">Volver al listado</a>
+    </div>
+{% endblock %}
