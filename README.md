@@ -8,12 +8,12 @@ La siguiente estructura resume las carpetas y archivos principales del repositor
 
 ```
 Desarrollo_Web/
-├── html/, css/, js/, json/, recursos/, wireframes/   Tarea 1 (estática)
+├── html/, css/, js/, json/, recursos/   Tarea 1 (estática)
 ├── app.py, config.py, models.py, repositorio.py,
-│   validaciones.py, requirements.txt                Tarea 2 (Flask)
-├── templates/, static/                               Tarea 2 (vistas y recursos servidos por Flask)
-├── contenido_curso/                                   material de clases y enunciados del curso
-└── venv/                                              entorno virtual de Python (no se versiona)
+│   validaciones.py, requirements.txt   Tarea 2 (Flask)
+├── templates/, static/                  Tarea 2 (vistas y recursos servidos por Flask)
+├── sql/                                  scripts para crear y poblar la base de datos
+└── venv/                                 entorno virtual de Python (no se versiona)
 ```
 
 Los archivos que pertenecen a la Tarea 1 quedaron completamente intactos durante todo este proceso. La aplicación Flask de la Tarea 2 no depende de ellos en ningún momento porque cuenta con su propia copia de css, js y recursos dentro de la carpeta static, adaptada donde hizo falta. Gracias a esto ambas entregas conviven dentro del mismo repositorio sin interferir entre sí en ningún momento.
@@ -35,7 +35,6 @@ La carpeta raíz de la Tarea 1 organiza sus archivos de la siguiente forma.
 - `js/` aporta un archivo por cada página que necesita lógica propia, además de `navegacion_global.js`, que comparten las 10 páginas para la navegación activa, el sidebar en el celular, el carrusel automático del hero y el año del footer.
 - `json/` guarda los datos simulados que consumen los formularios a través de fetch, como las regiones y comunas, los códigos postales y los motivos del formulario de contacto.
 - `recursos/` almacena las imágenes, los logos y los íconos del sitio.
-- `wireframes/` conserva los bocetos originales solo como referencia visual.
 
 ### Paleta y tipografía
 
@@ -68,17 +67,15 @@ La Tarea 1 no requiere ninguna instalación para poder revisarla. Basta con abri
 
 La Tarea 2 implementa en Python con Flask una parte de las funcionalidades de la Tarea 1 sobre una base de datos real. Cubre la portada con los últimos avistamientos, el registro de voluntarios, el registro de avistamientos con archivos adjuntos y el listado paginado con su vista de detalle, según lo pedido en el enunciado del curso. Las estadísticas quedan pendientes para la siguiente tarea, tal como indica ese mismo enunciado.
 
-Para entender el motivo detrás de cada decisión de implementación conviene revisar el documento `contenido_curso/backend-explicacion.md`. Ese documento compara las decisiones tomadas con otras alternativas de programación posibles, algo especialmente útil de cara a una conversación técnica sobre el proyecto. Aquí en el README solo se resume el funcionamiento general sin entrar en esas comparaciones.
-
 ### Cómo ejecutarlo
 
 La aplicación se levanta siguiendo estos pasos.
 
 1. Crear la base de datos, para lo cual se requiere un usuario con privilegios de administrador en MySQL, ya que las credenciales de la propia aplicación las crea el script.
    ```
-   mysql -u root -p < contenido_curso/tarea_2/tarea2.sql
-   mysql -u root -p tarea2 < contenido_curso/tarea_2/region-comuna.sql
-   mysql -u root -p tarea2 < contenido_curso/tarea_2/aves.sql
+   mysql -u root -p < sql/tarea2.sql
+   mysql -u root -p tarea2 < sql/region-comuna.sql
+   mysql -u root -p tarea2 < sql/aves.sql
    ```
 2. Instalar las dependencias con Python 3.10 o superior mediante `pip install -r requirements.txt`.
 3. Ejecutar `python app.py` y abrir `http://127.0.0.1:5000/` en el navegador.
@@ -96,6 +93,7 @@ La siguiente tabla resume la responsabilidad de cada archivo principal del backe
 | `repositorio.py` | Reúne todas las consultas y escrituras hacia la base de datos, sin que `app.py` necesite conocer ninguna línea de SQL |
 | `validaciones.py` | Reúne las reglas de validación del servidor, replicando las mismas reglas que ya existían en JavaScript |
 | `config.py` | Reúne la conexión a la base de datos, la carpeta de subidas y los límites de tamaño, extensión y paginación |
+| `sql/` | Reúne los scripts que crean el esquema y cargan los catálogos de región, comuna y ave antes de levantar la aplicación |
 | `templates/` | Reúne las vistas de Jinja, todas heredando de `base.html` para no repetir el header, el sidebar y el footer en cada página |
 | `static/` | Reúne una copia adaptada de los recursos visuales de la Tarea 1, además de la carpeta `uploads` donde se guardan los archivos que suben los usuarios |
 
@@ -127,4 +125,4 @@ Se validó el HTML ya renderizado de las 7 páginas del backend contra el valida
 
 ## Autor
 
-El sitio fue desarrollado por Diego Salinas para el curso de Desarrollo Web. El diseño visual y la estructura de la Tarea 1 se definieron a partir de wireframes propios, mientras que la Tarea 2 sigue el modelo de datos y las convenciones de Flask y SQLAlchemy que se enseñaron en las clases del curso. Cualquier duda técnica adicional puede resolverse revisando los documentos guardados dentro de la carpeta `contenido_curso`.
+El sitio fue desarrollado por Diego Salinas para el curso de Desarrollo Web. El diseño visual y la estructura de la Tarea 1 partieron de un proceso de diseño propio, mientras que la Tarea 2 sigue el modelo de datos y las convenciones de Flask y SQLAlchemy que se enseñaron en las clases del curso. Cualquier duda técnica adicional sobre las decisiones tomadas puede resolverse revisando los comentarios que encabezan cada módulo del código.

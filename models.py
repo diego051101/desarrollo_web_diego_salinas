@@ -1,6 +1,6 @@
 """Modelos SQLAlchemy 2.0 para la Tarea 2, mapeados 1 a 1 sobre las tablas
-creadas por contenido_curso/tarea_2/tarea2.sql (region, comuna, voluntario,
-ave, avistamiento, registro). Sigue el mismo estilo enseñado en la clase
+creadas por sql/tarea2.sql (region, comuna, voluntario, ave, avistamiento,
+registro). Sigue el mismo estilo enseñado en la clase
 5-python-sqlalchemy (DeclarativeBase + Mapped + mapped_column).
 
 Solo se declaran como relationship() de SQLAlchemy los vínculos que el

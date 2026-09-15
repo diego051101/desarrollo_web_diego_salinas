@@ -1,12 +1,11 @@
 """Tarea 2 — Observatorio Digital Aviario.
 
 Aplicación Flask que implementa las funcionalidades pedidas en el enunciado
-(contenido_curso/tarea_2/tarea-2-enunciado.md): portada con últimos
-avistamientos, registro de voluntarios, registro de avistamientos con
-archivos adjuntos, y listado paginado con vista de detalle — todo leyendo y
-escribiendo en MySQL a través de SQLAlchemy (repositorio.py), con
-validación repetida en el servidor (validaciones.py) además de la que ya
-existía en JavaScript.
+de la Tarea 2: portada con últimos avistamientos, registro de voluntarios,
+registro de avistamientos con archivos adjuntos, y listado paginado con
+vista de detalle — todo leyendo y escribiendo en MySQL a través de
+SQLAlchemy (repositorio.py), con validación repetida en el servidor
+(validaciones.py) además de la que ya existía en JavaScript.
 
 Sigue el mismo estilo de rutas que las clases 3 a 6 del curso (una función
 por ruta, methods=['GET', 'POST'] cuando corresponde, render_template con
