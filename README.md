@@ -1,6 +1,6 @@
 # Observatorio Digital Aviario
 
-Observatorio Digital Aviario es un sitio que registra avistamientos de aves reportados de forma voluntaria en conjunto con la Unión de Ornitólogos de Chile. El proyecto vive en un mismo repositorio que reúne tres entregas, la Tarea 1 como una maqueta estática en HTML, CSS y JavaScript, la Tarea 2 como un backend real construido con Flask, MySQL y SQLAlchemy sobre esa misma interfaz, y la Tarea 3 como la ampliación de ese backend con estadísticas y comentarios. Este documento reúne la información general de las tres entregas para que cualquiera pueda entender su funcionamiento sin necesitar más contexto.
+Observatorio Digital Aviario es un sitio que registra avistamientos de aves reportados de forma voluntaria en conjunto con la Unión de Ornitólogos de Chile. El proyecto vive en un mismo repositorio que reúne tres entregas, la Tarea 1 como una maqueta estática en HTML, CSS y JavaScript, la Tarea 2 como un backend real construido con Flask, MySQL y SQLAlchemy sobre esa misma interfaz, y la Tarea 3 como la ampliación de ese backend con estadísticas y comentarios. Este documento recoge la información general de las tres entregas para que cualquiera pueda entender su funcionamiento sin necesitar más contexto.
 
 ## Estructura general del repositorio
 
@@ -42,7 +42,7 @@ La paleta combina cinco colores siguiendo la regla de sesenta, treinta y diez qu
 
 ### Páginas del sitio
 
-El sitio reparte su contenido en diez páginas que replican el recorrido real de una persona que lo visita.
+El sitio reparte su contenido en 10 páginas que replican el recorrido real de una persona que lo visita.
 
 1. `pagina_principal.html`, presenta el proyecto a un visitante sin cuenta.
 2. `pagina_principal_sesion_iniciada.html`, la misma página principal con el encabezado ajustado a un usuario con sesión activa.
@@ -67,7 +67,7 @@ La Tarea 1 no requiere ninguna instalación para poder revisarla. Basta con abri
 
 La Tarea 2 implementa en Python con Flask una parte de las funcionalidades de la Tarea 1 sobre una base de datos real. Cubre la portada con los últimos avistamientos, el registro de voluntarios, el registro de avistamientos con archivos adjuntos y el listado paginado con su vista de detalle, según lo pedido en el enunciado del curso. Las estadísticas quedaron pendientes para la Tarea 3, tal como indicaba ese mismo enunciado.
 
-### Cómo ejecutarlo
+### Cómo ejecutar la Tarea 2
 
 La aplicación se levanta siguiendo estos pasos.
 
@@ -113,7 +113,7 @@ El enunciado permite ajustar el modelo propuesto a las decisiones ya tomadas en 
 
 La seguridad de esta parte del proyecto se sostiene sobre varias capas independientes entre sí.
 
-- Todas las reglas que ya existían en JavaScript se mantuvieron, adaptadas en los archivos `registrar_voluntario.js` y `registrar_avistamiento.js` dentro de `static`, mientras que los archivos originales de la Tarea 1 no se tocaron en ningún momento y ahora dejan que el formulario se envíe de verdad al servidor cuando la validación pasa.
+- Todas las reglas que ya existían en JavaScript se mantuvieron en las versiones adaptadas `registrar_voluntario.js` y `registrar_avistamiento.js` dentro de `static`, que ahora dejan que el formulario se envíe de verdad al servidor cuando la validación pasa, mientras que los archivos originales de la Tarea 1 no se tocaron.
 - Esas mismas reglas se repiten en el servidor porque el formulario del navegador se puede saltar por completo con una petición directa, así que cualquier identificador recibido para una comuna, un voluntario o un ave se valida contra los identificadores reales que existen en la base de datos.
 - El conversor entero de Flask rechaza automáticamente cualquier valor no numérico dentro de la URL, y el número de página del listado siempre se acota a un rango válido sin importar qué llegue en ese parámetro.
 - Las consultas siempre pasan por el ORM de SQLAlchemy sin concatenar nunca texto del usuario dentro de una consulta, lo que evita la inyección SQL por diseño, mientras que Jinja escapa automáticamente cualquier variable impresa en una plantilla, lo que evita el XSS.
@@ -127,7 +127,7 @@ Se validó el HTML ya renderizado de las 7 páginas del backend contra el valida
 
 La Tarea 3 completa sobre la misma aplicación Flask las estadísticas que la Tarea 1 solo había maquetado y agrega comentarios a cada avistamiento. Ambas funcionalidades se construyen en el navegador con JavaScript y la función fetch, que consulta rutas del servidor dedicadas a entregar datos en formato JSON. La base de datos sigue siendo la de la Tarea 2, con la única adición de la tabla comentario que acompaña al enunciado.
 
-### Cómo ejecutarla
+### Cómo ejecutar la Tarea 3
 
 La Tarea 3 no modifica ninguna tabla existente, así que basta con agregar la tabla comentario sobre la base de datos ya creada para la Tarea 2. El archivo `sql/tabla-comentario.sql` es una copia exacta del script entregado con el enunciado y se ejecuta con el comando que sigue. En una instalación desde cero se corren primero los tres scripts de la Tarea 2 y después este.
 
@@ -151,7 +151,7 @@ Los códigos de estado siguen su significado estándar, de modo que el JavaScrip
 
 Los gráficos se dibujan con [Chart.js](https://www.chartjs.org/) 4.4.1, publicado bajo licencia MIT, que permite su uso libre en cualquier proyecto. Se prefirió a Highcharts porque su licencia gratuita se limita al uso no comercial, y a Flot porque depende de jQuery, una biblioteca que el resto del sitio no necesita. Chart.js se carga desde cdnjs con un hash de integridad, que impide al navegador ejecutarlo si el archivo servido fuera alterado.
 
-Las tres consultas agrupan y cuentan directamente en la base de datos, de modo que el servidor envía solo los totales y nunca las filas completas. El gráfico de líneas cuenta los avistamientos según su fecha de observación, porque la tabla avistamiento no guarda una fecha de registro distinta, y completa con cero los días sin avistamientos para no unir dos días lejanos como si fueran consecutivos. El gráfico de barras muestra solo las comunas que tienen voluntarios, ordenadas alfabéticamente, tal como pide el enunciado.
+Las tres consultas agrupan y cuentan directamente en la base de datos, de modo que el servidor envía solo los totales y nunca las filas completas. El gráfico de líneas reparte los avistamientos según su fecha de observación, porque la tabla avistamiento no guarda una fecha de registro distinta, y completa con cero los días sin avistamientos para no unir dos días lejanos como si fueran consecutivos. El gráfico de barras muestra solo las comunas que tienen voluntarios, ordenadas alfabéticamente, tal como pide el enunciado.
 
 Los colores de la línea y de las barras se leen de las variables CSS del sitio, así que cualquier cambio en la paleta alcanza también a los gráficos. La torta usa la paleta Okabe-Ito, diseñada para que sus colores se distingan con los tipos más comunes de daltonismo. Las animaciones se desactivan cuando el sistema operativo del visitante declara preferencia por movimiento reducido.
 
@@ -159,13 +159,13 @@ Los colores de la línea y de las barras se leen de las variables CSS del sitio,
 
 El formulario de cada avistamiento pide el nombre de quien comenta, entre 3 y 50 caracteres, y el texto del comentario, entre 5 y 300 caracteres, en un área de texto de 3 filas y 40 columnas. El enunciado no fija un máximo para el texto, así que se usó el límite de la columna `comentario.texto`, definida como VARCHAR(300). Ambos rangos viven en `config.py` y la plantilla los imprime como atributos `minlength` y `maxlength`, que el JavaScript lee para validar con exactamente las mismas reglas que el servidor.
 
-Cuando la validación del navegador falla, el mensaje aparece junto al campo afectado y no se envía nada. Si los datos pasan, el formulario se envía con fetch y el servidor vuelve a validarlos desde cero, porque una petición directa puede saltarse el JavaScript por completo. Si el servidor los rechaza, responde con los mismos mensajes por campo y el formulario permanece visible con lo escrito para que pueda corregirse.
+Cuando la validación del navegador falla, el mensaje aparece junto al campo afectado y la petición no llega a salir. Si los datos pasan, el formulario se envía con fetch y el servidor vuelve a validarlos desde cero, porque una petición directa puede saltarse el JavaScript por completo. Si el servidor los rechaza, responde con los mismos mensajes por campo y el formulario permanece visible con lo escrito para que pueda corregirse.
 
 El servidor asigna la fecha del comentario al guardarlo y rechaza los emojis, que el juego de caracteres utf8 de la base de datos no puede almacenar. El JavaScript inserta el nombre y el texto en la página como texto plano y nunca como HTML, por lo que un comentario con etiquetas script se muestra literalmente sin ejecutarse. El botón de envío se deshabilita mientras la petición está en curso, lo que evita guardar el mismo comentario dos veces por un doble clic.
 
 ### Mejoras al código de la Tarea 2
 
-La revisión del proyecto durante esta entrega detectó y corrigió los siguientes problemas del código anterior:
+La revisión del proyecto durante esta entrega detectó y corrigió los siguientes problemas del código anterior.
 
 - El avistamiento y sus archivos adjuntos se guardaban con confirmaciones separadas, y ahora se guardan en una sola transacción.
 - El listado consultaba los archivos de cada avistamiento por separado, y ahora los precarga en una consulta fija.
@@ -177,7 +177,7 @@ La revisión del proyecto durante esta entrega detectó y corrigió los siguient
 
 ### Validación W3C de la Tarea 3
 
-Se validó el HTML ya renderizado de las 7 páginas de la aplicación contra el validador oficial de W3C, con cero errores y cero advertencias. Se hizo lo mismo con las 9 hojas de estilo de la carpeta static contra el validador oficial de CSS, también con cero errores. Ambas validaciones se repitieron después de cada cambio de estructura, porque corregir la jerarquía de títulos llegó a introducir un error que el validador detectó a tiempo.
+Se validó el HTML ya renderizado de las 7 páginas de la aplicación contra el validador oficial de W3C, con cero errores y cero advertencias. Se hizo lo mismo con las 9 hojas de estilo de la carpeta static contra el validador oficial de CSS, también con cero errores. Ambas validaciones se repitieron después de cada cambio de estructura, porque corregir la jerarquía de títulos llegó a introducir un error que esa revisión detectó a tiempo.
 
 ## Autor
 
