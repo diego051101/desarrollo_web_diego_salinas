@@ -1,13 +1,11 @@
-"""Validación del lado del servidor para los formularios de la Tarea 2.
+"""Validación del lado del servidor para los formularios del sitio.
 
-Replica exactamente las mismas reglas que ya existían en el JavaScript de la
-Tarea 1 (js/registro_usuario.js y js/registro_avistamiento.js), tal como
-pide el enunciado ("mantener todas las validaciones realizadas con
-Javascript" + validar también en el servidor). Nunca hay que confiar en que
-el navegador ya validó: cualquiera puede mandar una petición POST directa
-con curl o herramientas de desarrollador saltándose el JavaScript por
-completo, así que estas reglas se vuelven a aplicar acá desde cero sobre los
-datos crudos que llegan en la petición.
+Replica exactamente las mismas reglas que ya existen en JavaScript, tal como
+piden los enunciados (validar en el navegador y también en el servidor).
+Nunca hay que confiar en que el navegador ya validó: cualquiera puede mandar
+una petición POST directa con curl saltándose el JavaScript por completo,
+así que estas reglas se vuelven a aplicar acá sobre los datos crudos que
+llegan en la petición.
 
 Cada función devuelve un diccionario {nombre_campo: mensaje_error}. Un
 diccionario vacío significa que los datos son válidos.
@@ -17,7 +15,13 @@ from datetime import datetime
 
 import filetype
 
-from config import EXTENSIONES_PERMITIDAS, TAMANO_MAXIMO_ARCHIVO, TIPOS_MIME_PERMITIDOS
+from config import (
+    EXTENSIONES_PERMITIDAS,
+    LARGO_NOMBRE_COMENTARIO,
+    LARGO_TEXTO_COMENTARIO,
+    TAMANO_MAXIMO_ARCHIVO,
+    TIPOS_MIME_PERMITIDOS,
+)
 
 
 def _texto(valor):
@@ -25,6 +29,17 @@ def _texto(valor):
     request.form.get(...) ya devuelve str o None; esto solo evita
     reventar con .strip() si el campo no vino en el POST."""
     return (valor or "").strip()
+
+
+def _largo_entre(texto, minimo, maximo):
+    return minimo <= len(texto) <= maximo
+
+
+def _tiene_caracteres_de_4_bytes(texto):
+    """La base tarea2 se crea con CHARACTER SET utf8, que en MySQL equivale a
+    utf8mb3 y no admite caracteres de 4 bytes como los emojis: insertarlos
+    haría fallar la consulta, así que se rechazan antes con un mensaje claro."""
+    return any(ord(caracter) > 0xFFFF for caracter in texto)
 
 
 def entero_o_none(valor):
@@ -42,18 +57,18 @@ def validar_voluntario(datos, comuna_ids_validas):
     errores = {}
 
     nombre = _texto(datos.get("nombre"))
-    if not nombre or len(nombre) < 2 or len(nombre) > 50:
+    if not _largo_entre(nombre, 2, 50):
         errores["nombre"] = "Nombre inválido (debe tener entre 2 y 50 caracteres)."
 
     apellido = _texto(datos.get("apellido"))
-    if not apellido or len(apellido) < 2 or len(apellido) > 50:
+    if not _largo_entre(apellido, 2, 50):
         errores["apellido"] = "Apellido inválido (debe tener entre 2 y 50 caracteres)."
 
     correo = _texto(datos.get("correo"))
     # El límite superior es 80 porque así está definida la columna
     # voluntario.email (VARCHAR(80)) en tarea2.sql: un correo más largo
     # pasaría esta validación pero fallaría al insertarse en MySQL.
-    if not correo or "@" not in correo or "." not in correo or len(correo) < 5 or len(correo) > 80:
+    if "@" not in correo or "." not in correo or not _largo_entre(correo, 5, 80):
         errores["correo"] = "Email inválido (máximo 80 caracteres)."
 
     telefono = _texto(datos.get("telefono"))
@@ -80,7 +95,7 @@ def validar_avistamiento(datos, voluntario_ids_validas, ave_ids_validas):
         errores["ave"] = "Debes seleccionar un ave válida."
 
     lugar = _texto(datos.get("lugar"))
-    if not lugar or len(lugar) < 2 or len(lugar) > 100:
+    if not _largo_entre(lugar, 2, 100):
         errores["lugar"] = "Lugar inválido (debe tener entre 2 y 100 caracteres)."
 
     fecha = _texto(datos.get("fecha"))
@@ -129,3 +144,30 @@ def archivo_valido(archivo):
         return False, f'El contenido de "{nombre}" no corresponde a una imagen o video válido.'
 
     return True, ""
+
+
+def validar_archivos(archivos):
+    """Devuelve el mensaje de error del primer archivo inválido, o None si
+    se adjuntó al menos uno y todos son válidos."""
+    if not archivos:
+        return "Debes adjuntar al menos una fotografía o video."
+    for archivo in archivos:
+        valido, mensaje = archivo_valido(archivo)
+        if not valido:
+            return mensaje
+    return None
+
+
+def validar_comentario(datos):
+    errores = {}
+    campos = (
+        ("nombre", "El nombre", LARGO_NOMBRE_COMENTARIO),
+        ("texto", "El comentario", LARGO_TEXTO_COMENTARIO),
+    )
+    for campo, etiqueta, (minimo, maximo) in campos:
+        valor = _texto(datos.get(campo))
+        if not _largo_entre(valor, minimo, maximo):
+            errores[campo] = f"{etiqueta} debe tener entre {minimo} y {maximo} caracteres."
+        elif _tiene_caracteres_de_4_bytes(valor):
+            errores[campo] = f"{etiqueta} no puede contener emojis."
+    return errores

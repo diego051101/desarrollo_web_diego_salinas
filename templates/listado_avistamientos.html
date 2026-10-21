@@ -8,7 +8,7 @@
 
 {% block contenido %}
     <section class="listado-avistamientos">
-        <h2 class="titulo-seccion">Avistamientos</h2>
+        <h1 class="titulo-seccion">Avistamientos</h1>
 
         {% if avistamientos %}
             <ul class="tabla-avistamientos">
@@ -47,7 +47,7 @@
                 {% endif %}
             </nav>
         {% else %}
-            <p style="text-align: center;">Todavía no hay avistamientos registrados.</p>
+            <p class="texto-centrado">Todavía no hay avistamientos registrados.</p>
         {% endif %}
     </section>
 {% endblock %}

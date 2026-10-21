@@ -1,6 +1,6 @@
 # Observatorio Digital Aviario
 
-Observatorio Digital Aviario es un sitio que registra avistamientos de aves reportados de forma voluntaria en conjunto con la Unión de Ornitólogos de Chile. El proyecto vive en un mismo repositorio que reúne dos entregas distintas, la Tarea 1 como una maqueta estática en HTML, CSS y JavaScript, y la Tarea 2 como un backend real construido con Flask, MySQL y SQLAlchemy sobre esa misma interfaz. Este documento reúne toda la información general de ambas entregas para que cualquiera pueda entender su funcionamiento sin necesitar más contexto.
+Observatorio Digital Aviario es un sitio que registra avistamientos de aves reportados de forma voluntaria en conjunto con la Unión de Ornitólogos de Chile. El proyecto vive en un mismo repositorio que reúne tres entregas, la Tarea 1 como una maqueta estática en HTML, CSS y JavaScript, la Tarea 2 como un backend real construido con Flask, MySQL y SQLAlchemy sobre esa misma interfaz, y la Tarea 3 como la ampliación de ese backend con estadísticas y comentarios. Este documento reúne la información general de las tres entregas para que cualquiera pueda entender su funcionamiento sin necesitar más contexto.
 
 ## Estructura general del repositorio
 
@@ -10,13 +10,13 @@ La siguiente estructura resume las carpetas y archivos principales del repositor
 Desarrollo_Web/
 ├── html/, css/, js/, json/, recursos/   Tarea 1 (estática)
 ├── app.py, config.py, models.py, repositorio.py,
-│   validaciones.py, requirements.txt   Tarea 2 (Flask)
-├── templates/, static/                  Tarea 2 (vistas y recursos servidos por Flask)
+│   validaciones.py, requirements.txt   Tareas 2 y 3 (Flask)
+├── templates/, static/                  Tareas 2 y 3 (vistas y recursos servidos por Flask)
 ├── sql/                                  scripts para crear y poblar la base de datos
 └── venv/                                 entorno virtual de Python (no se versiona)
 ```
 
-Los archivos que pertenecen a la Tarea 1 quedaron completamente intactos durante todo este proceso. La aplicación Flask de la Tarea 2 no depende de ellos en ningún momento porque cuenta con su propia copia de css, js y recursos dentro de la carpeta static, adaptada donde hizo falta. Gracias a esto ambas entregas conviven dentro del mismo repositorio sin interferir entre sí en ningún momento.
+Los archivos que pertenecen a la Tarea 1 quedaron completamente intactos durante todo este proceso. La aplicación Flask de las Tareas 2 y 3 no depende de ellos porque cuenta con su propia copia de css, js y recursos dentro de la carpeta static, adaptada donde hizo falta. Gracias a esto la maqueta estática y la aplicación conviven dentro del mismo repositorio sin interferir entre sí.
 
 Todas las imágenes del proyecto se guardan en formato webp en lugar de jpg o png. Ese formato comprime mucho mejor sin perder calidad visible y por eso el peso total de las carpetas de recursos bajó a menos de la mitad. Gracias a ese cambio la página carga más rápido para quien la visita y el repositorio pesa menos para quien lo descarga.
 
@@ -65,7 +65,7 @@ La Tarea 1 no requiere ninguna instalación para poder revisarla. Basta con abri
 
 ## Tarea 2, backend con Flask, MySQL y SQLAlchemy
 
-La Tarea 2 implementa en Python con Flask una parte de las funcionalidades de la Tarea 1 sobre una base de datos real. Cubre la portada con los últimos avistamientos, el registro de voluntarios, el registro de avistamientos con archivos adjuntos y el listado paginado con su vista de detalle, según lo pedido en el enunciado del curso. Las estadísticas quedan pendientes para la siguiente tarea, tal como indica ese mismo enunciado.
+La Tarea 2 implementa en Python con Flask una parte de las funcionalidades de la Tarea 1 sobre una base de datos real. Cubre la portada con los últimos avistamientos, el registro de voluntarios, el registro de avistamientos con archivos adjuntos y el listado paginado con su vista de detalle, según lo pedido en el enunciado del curso. Las estadísticas quedaron pendientes para la Tarea 3, tal como indicaba ese mismo enunciado.
 
 ### Cómo ejecutarlo
 
@@ -88,8 +88,8 @@ La siguiente tabla resume la responsabilidad de cada archivo principal del backe
 
 | Archivo | Responsabilidad |
 |---|---|
-| `app.py` | Reúne las rutas de Flask y coordina cada petición, delegando la validación y el acceso a datos a otros módulos |
-| `models.py` | Define los modelos de SQLAlchemy que reflejan uno a uno las tablas creadas por `tarea2.sql` |
+| `app.py` | Reúne las rutas de Flask, incluidas las rutas `/api/` de la Tarea 3, y coordina cada petición delegando la validación y el acceso a datos |
+| `models.py` | Define los modelos de SQLAlchemy que reflejan uno a uno las tablas creadas por `tarea2.sql` y `tabla-comentario.sql` |
 | `repositorio.py` | Reúne todas las consultas y escrituras hacia la base de datos, sin que `app.py` necesite conocer ninguna línea de SQL |
 | `validaciones.py` | Reúne las reglas de validación del servidor, replicando las mismas reglas que ya existían en JavaScript |
 | `config.py` | Reúne la conexión a la base de datos, la carpeta de subidas y los límites de tamaño, extensión y paginación |
@@ -123,6 +123,62 @@ La seguridad de esta parte del proyecto se sostiene sobre varias capas independi
 
 Se validó el HTML ya renderizado de las 7 páginas del backend contra el validador oficial de W3C durante todo el desarrollo. Se hizo lo mismo con las 7 hojas de estilo que usa esa parte del proyecto, esta vez contra el validador oficial de CSS de W3C. En ambos casos el resultado fue de cero errores encontrados.
 
+## Tarea 3, estadísticas y comentarios
+
+La Tarea 3 completa sobre la misma aplicación Flask las estadísticas que la Tarea 1 solo había maquetado y agrega comentarios a cada avistamiento. Ambas funcionalidades se construyen en el navegador con JavaScript y la función fetch, que consulta rutas del servidor dedicadas a entregar datos en formato JSON. La base de datos sigue siendo la de la Tarea 2, con la única adición de la tabla comentario que acompaña al enunciado.
+
+### Cómo ejecutarla
+
+La Tarea 3 no modifica ninguna tabla existente, así que basta con agregar la tabla comentario sobre la base de datos ya creada para la Tarea 2. El archivo `sql/tabla-comentario.sql` es una copia exacta del script entregado con el enunciado y se ejecuta con el comando que sigue. En una instalación desde cero se corren primero los tres scripts de la Tarea 2 y después este.
+
+```
+mysql -u root -p tarea2 < sql/tabla-comentario.sql
+```
+
+### Rutas de datos
+
+El servidor expone tres rutas que responden en JSON, resumidas en la tabla siguiente.
+
+| Ruta | Método | Respuesta |
+|---|---|---|
+| `/api/estadisticas` | GET | Las tres series de los gráficos, cada una como etiquetas y valores |
+| `/api/avistamientos/<id>/comentarios` | GET | Los comentarios del avistamiento, del más reciente al más antiguo |
+| `/api/avistamientos/<id>/comentarios` | POST | 201 con el comentario creado, 422 con los errores por campo o 404 si el avistamiento no existe |
+
+Los códigos de estado siguen su significado estándar, de modo que el JavaScript distingue un error de validación de un avistamiento inexistente sin interpretar el texto de la respuesta. El conversor entero de Flask rechaza cualquier identificador que no sea numérico antes de que llegue a una consulta. Cada ruta delega el acceso a datos en `repositorio.py` y la validación en `validaciones.py`, igual que las páginas de la Tarea 2.
+
+### Gráficos
+
+Los gráficos se dibujan con [Chart.js](https://www.chartjs.org/) 4.4.1, publicado bajo licencia MIT, que permite su uso libre en cualquier proyecto. Se prefirió a Highcharts porque su licencia gratuita se limita al uso no comercial, y a Flot porque depende de jQuery, una biblioteca que el resto del sitio no necesita. Chart.js se carga desde cdnjs con un hash de integridad, que impide al navegador ejecutarlo si el archivo servido fuera alterado.
+
+Las tres consultas agrupan y cuentan directamente en la base de datos, de modo que el servidor envía solo los totales y nunca las filas completas. El gráfico de líneas cuenta los avistamientos según su fecha de observación, porque la tabla avistamiento no guarda una fecha de registro distinta, y completa con cero los días sin avistamientos para no unir dos días lejanos como si fueran consecutivos. El gráfico de barras muestra solo las comunas que tienen voluntarios, ordenadas alfabéticamente, tal como pide el enunciado.
+
+Los colores de la línea y de las barras se leen de las variables CSS del sitio, así que cualquier cambio en la paleta alcanza también a los gráficos. La torta usa la paleta Okabe-Ito, diseñada para que sus colores se distingan con los tipos más comunes de daltonismo. Las animaciones se desactivan cuando el sistema operativo del visitante declara preferencia por movimiento reducido.
+
+### Comentarios
+
+El formulario de cada avistamiento pide el nombre de quien comenta, entre 3 y 50 caracteres, y el texto del comentario, entre 5 y 300 caracteres, en un área de texto de 3 filas y 40 columnas. El enunciado no fija un máximo para el texto, así que se usó el límite de la columna `comentario.texto`, definida como VARCHAR(300). Ambos rangos viven en `config.py` y la plantilla los imprime como atributos `minlength` y `maxlength`, que el JavaScript lee para validar con exactamente las mismas reglas que el servidor.
+
+Cuando la validación del navegador falla, el mensaje aparece junto al campo afectado y no se envía nada. Si los datos pasan, el formulario se envía con fetch y el servidor vuelve a validarlos desde cero, porque una petición directa puede saltarse el JavaScript por completo. Si el servidor los rechaza, responde con los mismos mensajes por campo y el formulario permanece visible con lo escrito para que pueda corregirse.
+
+El servidor asigna la fecha del comentario al guardarlo y rechaza los emojis, que el juego de caracteres utf8 de la base de datos no puede almacenar. El JavaScript inserta el nombre y el texto en la página como texto plano y nunca como HTML, por lo que un comentario con etiquetas script se muestra literalmente sin ejecutarse. El botón de envío se deshabilita mientras la petición está en curso, lo que evita guardar el mismo comentario dos veces por un doble clic.
+
+### Mejoras al código de la Tarea 2
+
+La revisión del proyecto durante esta entrega detectó y corrigió los siguientes problemas del código anterior:
+
+- El avistamiento y sus archivos adjuntos se guardaban con confirmaciones separadas, y ahora se guardan en una sola transacción.
+- El listado consultaba los archivos de cada avistamiento por separado, y ahora los precarga en una consulta fija.
+- Las páginas no tenían un título principal `h1`, salvo la portada, y los títulos del pie de página saltaban niveles.
+- El contenido principal ocupaba solo el ancho de su contenido en escritorio, en lugar del ancho disponible.
+- El texto gris de las tarjetas de la portada no alcanzaba el contraste mínimo de 4,5 a 1 sobre el fondo verde.
+- El enlace de correo del pie de página apuntaba a una dirección distinta de la que mostraba.
+- Los estilos escritos dentro del HTML pasaron a una clase reutilizable, y las validaciones y rutas repetidas se extrajeron a funciones comunes.
+
+### Validación W3C de la Tarea 3
+
+Se validó el HTML ya renderizado de las 7 páginas de la aplicación contra el validador oficial de W3C, con cero errores y cero advertencias. Se hizo lo mismo con las 9 hojas de estilo de la carpeta static contra el validador oficial de CSS, también con cero errores. Ambas validaciones se repitieron después de cada cambio de estructura, porque corregir la jerarquía de títulos llegó a introducir un error que el validador detectó a tiempo.
+
 ## Autor
 
-El sitio fue desarrollado por Diego Salinas para el curso de Desarrollo Web. El diseño visual y la estructura de la Tarea 1 partieron de un proceso de diseño propio, mientras que la Tarea 2 sigue el modelo de datos y las convenciones de Flask y SQLAlchemy que se enseñaron en las clases del curso. Cualquier duda técnica adicional sobre las decisiones tomadas puede resolverse revisando los comentarios que encabezan cada módulo del código.
+El sitio fue desarrollado por Diego Salinas para el curso de Desarrollo Web. El diseño visual y la estructura de la Tarea 1 partieron de un proceso de diseño propio, mientras que las Tareas 2 y 3 siguen el modelo de datos y las convenciones de Flask y SQLAlchemy que se enseñaron en las clases del curso. Cualquier duda técnica adicional sobre las decisiones tomadas puede resolverse revisando los comentarios que encabezan cada módulo del código.

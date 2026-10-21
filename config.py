@@ -1,6 +1,6 @@
-"""Configuración centralizada de la Tarea 2: conexión a la base de datos,
-carpeta de subida de archivos y límites de validación compartidos entre
-`app.py` y `validaciones.py`.
+"""Configuración centralizada: conexión a la base de datos, carpeta de
+subida de archivos y límites de validación compartidos entre `app.py`,
+`validaciones.py` y las plantillas.
 """
 
 import os
@@ -32,3 +32,9 @@ TAMANO_MAXIMO_ARCHIVO = 5 * 1024 * 1024  # 5 MB por archivo, igual que en la Tar
 MAX_CONTENT_LENGTH = 20 * 1024 * 1024  # 20 MB por request completa
 
 AVISTAMIENTOS_POR_PAGINA = 5
+
+# Largos (mínimo, máximo) de los campos de un comentario. El mínimo y el
+# máximo del nombre vienen del enunciado de la Tarea 3, el mínimo del texto
+# también, y su máximo es el VARCHAR(300) de la columna comentario.texto.
+LARGO_NOMBRE_COMENTARIO = (3, 50)
+LARGO_TEXTO_COMENTARIO = (5, 300)

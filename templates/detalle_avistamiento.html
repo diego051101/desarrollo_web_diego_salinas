@@ -5,6 +5,8 @@
 {% block css_extra %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/publicacion.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/perfil.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/formulario.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/comentarios.css') }}">
 {% endblock %}
 
 {% block contenido %}
@@ -26,17 +28,42 @@
                 <p>Este avistamiento no tiene fotos o videos adjuntos.</p>
             {% endif %}
         </div>
-        <aside class="detalle-publicacion">
-            <h2>{{ avistamiento.ave.nombre }}</h2>
+        <div class="detalle-publicacion">
+            <h1>{{ avistamiento.ave.nombre }}</h1>
             <p>Reportado por <strong>{{ avistamiento.voluntario.nombre }}</strong></p>
             <p>{{ avistamiento.lugar }}</p>
             <p>{{ avistamiento.fecha_hora.strftime("%H:%M") }} hrs, {{ avistamiento.fecha_hora.strftime("%d/%m/%Y") }}</p>
             {% if avistamiento.descripcion %}
                 <p>{{ avistamiento.descripcion }}</p>
             {% endif %}
-        </aside>
+        </div>
     </article>
+
+    <section class="seccion-comentarios" aria-labelledby="titulo-comentarios">
+        <h2 id="titulo-comentarios" class="titulo-seccion">Comentarios</h2>
+        <form method="POST" action="{{ url_for('api_comentarios', avistamiento_id=avistamiento.id) }}" class="formulario" id="formulario-comentario" novalidate>
+            <div class="grupo-formulario">
+                <label for="nombre-comentarista">Nombre <span class="texto-rojo">*</span></label>
+                <input type="text" id="nombre-comentarista" name="nombre" aria-describedby="error-nombre" autocomplete="name" minlength="{{ largo_nombre[0] }}" maxlength="{{ largo_nombre[1] }}" required>
+                <span class="mensaje-error-campo" id="error-nombre"></span>
+            </div>
+            <div class="grupo-formulario">
+                <label for="texto-comentario">Comentario <span class="texto-rojo">*</span></label>
+                <textarea id="texto-comentario" name="texto" aria-describedby="error-texto" rows="3" cols="40" minlength="{{ largo_texto[0] }}" maxlength="{{ largo_texto[1] }}" required></textarea>
+                <span class="mensaje-error-campo" id="error-texto"></span>
+            </div>
+            <button type="submit">Agregar comentario</button>
+            <p class="mensaje-estado" id="estado-envio-comentario" role="status"></p>
+        </form>
+        <p class="mensaje-estado texto-centrado" id="estado-comentarios" role="status">Cargando comentarios...</p>
+        <ul class="lista-comentarios" id="lista-comentarios"></ul>
+    </section>
+
     <div class="contenedor-boton-centrado">
         <a href="{{ url_for('listado_avistamientos') }}" class="boton-ver-mas">Volver al listado</a>
     </div>
+{% endblock %}
+
+{% block js_extra %}
+    <script src="{{ url_for('static', filename='js/comentarios.js') }}"></script>
 {% endblock %}

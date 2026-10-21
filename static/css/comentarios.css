@@ -1,0 +1,44 @@
+/* Sección de comentarios del detalle de un avistamiento (Tarea 3). */
+
+.seccion-comentarios {
+    margin-top: var(--espacio-xl);
+}
+
+.seccion-comentarios > .mensaje-estado {
+    margin-top: var(--espacio-md);
+}
+
+.lista-comentarios {
+    list-style: none;
+    max-width: 700px;
+    margin: var(--espacio-md) auto 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--espacio-sm);
+}
+
+.item-comentario {
+    background-color: var(--color-superficie);
+    border-radius: var(--radio-md);
+    padding: var(--espacio-sm) var(--espacio-md);
+    box-shadow: var(--sombra-sm);
+}
+
+.cabecera-comentario {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--espacio-xs);
+    margin-bottom: var(--espacio-xs);
+}
+
+.cabecera-comentario time {
+    font-size: 0.85rem;
+}
+
+.texto-comentario {
+    margin: 0;
+    overflow-wrap: anywhere;
+    white-space: pre-line;
+}

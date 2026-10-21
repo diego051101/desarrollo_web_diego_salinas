@@ -25,7 +25,7 @@
 
 .tarjeta-menu p {
     margin: 0;
-    color: var(--color-texto-secundario);
+    color: var(--color-texto);
     font-size: 0.9rem;
 }
 

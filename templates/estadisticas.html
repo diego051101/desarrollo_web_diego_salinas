@@ -2,12 +2,41 @@
 
 {% block titulo %}Estadísticas{% endblock %}
 
+{% block css_extra %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estadisticas.css') }}">
+{% endblock %}
+
 {% block contenido %}
-    <h2 class="titulo-seccion">Estadísticas</h2>
-    <p style="text-align: center;">
-        Los indicadores y métricas de la comunidad quedarán disponibles en la próxima tarea del curso.
-    </p>
+    <h1 class="titulo-seccion">Estadísticas</h1>
+    <p class="mensaje-estado texto-centrado" id="estado-estadisticas" role="status">Cargando estadísticas...</p>
+
+    <div class="contenedor-estadisticas" id="contenedor-estadisticas" data-url="{{ url_for('api_estadisticas') }}">
+        <figure class="tarjeta-estadistica">
+            <figcaption>Avistamientos por día</figcaption>
+            <div class="lienzo-grafico">
+                <canvas id="grafico-avistamientos-por-dia" role="img" aria-label="Gráfico de líneas con la cantidad de avistamientos registrados por día."></canvas>
+            </div>
+        </figure>
+        <figure class="tarjeta-estadistica">
+            <figcaption>Avistamientos por tipo de ave</figcaption>
+            <div class="lienzo-grafico">
+                <canvas id="grafico-avistamientos-por-ave" role="img" aria-label="Gráfico de torta con el total de avistamientos por tipo de ave."></canvas>
+            </div>
+        </figure>
+        <figure class="tarjeta-estadistica">
+            <figcaption>Voluntarios por comuna</figcaption>
+            <div class="lienzo-grafico">
+                <canvas id="grafico-voluntarios-por-comuna" role="img" aria-label="Gráfico de barras con el total de voluntarios registrados por comuna."></canvas>
+            </div>
+        </figure>
+    </div>
+
     <div class="contenedor-boton-centrado">
         <a href="{{ url_for('portada') }}" class="boton-ver-mas">Volver a la portada</a>
     </div>
+{% endblock %}
+
+{% block js_extra %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js" integrity="sha512-CQBWl4fJHWbryGE+Pc7UAxWMUMNMWzWxF4SQo9CgkJIN1kx6djDQZjh3Y8SZ1d+6I+1zze6Z7kHXO7q3UyZAWw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{{ url_for('static', filename='js/estadisticas.js') }}"></script>
 {% endblock %}

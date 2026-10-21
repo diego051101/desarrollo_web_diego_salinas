@@ -1,7 +1,7 @@
-"""Modelos SQLAlchemy 2.0 para la Tarea 2, mapeados 1 a 1 sobre las tablas
-creadas por sql/tarea2.sql (region, comuna, voluntario, ave, avistamiento,
-registro). Sigue el mismo estilo enseñado en la clase
-5-python-sqlalchemy (DeclarativeBase + Mapped + mapped_column).
+"""Modelos SQLAlchemy 2.0, mapeados 1 a 1 sobre las tablas creadas por
+sql/tarea2.sql (region, comuna, voluntario, ave, avistamiento, registro) y
+sql/tabla-comentario.sql (comentario). Sigue el mismo estilo enseñado en la
+clase 5-python-sqlalchemy (DeclarativeBase + Mapped + mapped_column).
 
 Solo se declaran como relationship() de SQLAlchemy los vínculos que el
 código realmente navega (avistamiento.ave, avistamiento.voluntario,
@@ -93,3 +93,13 @@ class Registro(Base):
         partir de ruta_archivo + nombre_archivo en vez de repetir la
         concatenación en cada plantilla que muestra un archivo adjunto."""
         return f"{self.ruta_archivo}/{self.nombre_archivo}"
+
+
+class Comentario(Base):
+    __tablename__ = "comentario"
+
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+    nombre: Mapped[str] = mapped_column(String(80))
+    texto: Mapped[str] = mapped_column(String(300))
+    fecha: Mapped[datetime] = mapped_column(DateTime)
+    avistamiento_id: Mapped[int] = mapped_column(ForeignKey("avistamiento.id"))

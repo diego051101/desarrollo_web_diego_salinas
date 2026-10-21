@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Observatorio Digital Aviario | {% block titulo %}Tarea 2{% endblock %}</title>
+    <title>Observatorio Digital Aviario | {% block titulo %}Inicio{% endblock %}</title>
     <link rel="icon" type="image/webp" href="{{ url_for('static', filename='recursos/icon_observatorio_digital_aviario.webp') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/tarea2.css') }}">
@@ -45,17 +45,17 @@
                 </a>
             </div>
             <div class="footer-contacto">
-                <h3>¡Contáctanos!</h3>
+                <h2>¡Contáctanos!</h2>
                 <p class="linea-contacto">
                     <svg class="icono-correo icono-md" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <rect x="3" y="5" width="18" height="14" rx="2"></rect>
                         <path d="M3 7l9 6 9-6"></path>
                     </svg>
-                    <a href="mailto:contacto@oda.cl">contacto@observatorioaviario.cl</a>
+                    <a href="mailto:contacto@observatorioaviario.cl">contacto@observatorioaviario.cl</a>
                 </p>
             </div>
             <div class="footer-redes">
-                <h3>¡Síguenos en nuestras redes!</h3>
+                <h2>¡Síguenos en nuestras redes!</h2>
                 <div class="iconos-redes">
                     <a href="https://instagram.com">
                         <img src="{{ url_for('static', filename='recursos/icon_instagram_black.webp') }}" alt="Síguenos en Instagram.">

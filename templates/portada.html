@@ -8,7 +8,7 @@
 
 {% block contenido %}
     <h1 class="titulo-seccion">¡Bienvenido/a al Observatorio Digital Aviario!</h1>
-    <p style="text-align: center;">
+    <p class="texto-centrado">
         Aquí puedes registrarte como voluntario, informar un avistamiento y revisar los que ya
         reportó la comunidad.
     </p>
@@ -30,7 +30,7 @@
             </a>
             <a class="tarjeta-menu" href="{{ url_for('estadisticas') }}">
                 <h3>Estadísticas</h3>
-                <p>Indicadores y métricas de la comunidad (próximamente).</p>
+                <p>Gráficos de avistamientos por día y por ave, y de voluntarios por comuna.</p>
             </a>
         </div>
     </section>
@@ -52,7 +52,7 @@
                 {% endfor %}
             </ul>
         {% else %}
-            <p style="text-align: center;">Todavía no hay avistamientos registrados.</p>
+            <p class="texto-centrado">Todavía no hay avistamientos registrados.</p>
         {% endif %}
         <div class="contenedor-boton-centrado">
             <a href="{{ url_for('listado_avistamientos') }}" class="boton-ver-mas">Ver todos</a>

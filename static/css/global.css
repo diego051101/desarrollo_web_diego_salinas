@@ -534,6 +534,7 @@ body.con-barra-lateral > footer {
 
 /* Contenido principal */
 main {
+    width: 100%;
     max-width: 1100px;
     margin: 0 auto;
     padding: var(--espacio-lg) 1.5rem;
@@ -618,7 +619,7 @@ footer {
     margin-top: var(--espacio-xl);
 }
 
-footer h3 {
+footer h2 {
     color: var(--color-fondo);
     font-family: var(--fuente-texto);
     font-size: 1rem;

@@ -1,5 +1,5 @@
-/* Estilos compartidos por las páginas de la Tarea 2 (backend Flask):
-   mensajes de error por campo, mensajes flash y estados de archivo subido.
+/* Estilos compartidos por las páginas servidas por Flask (Tareas 2 y 3):
+   mensajes de error por campo, mensajes flash y mensajes de estado.
    Reutiliza las variables de global.css; no repite ninguna regla que ya
    exista ahí (colores, radios, sombras, transición). */
 
@@ -8,6 +8,11 @@
     color: var(--color-error);
     font-size: 0.85rem;
     margin-top: 0.35rem;
+}
+
+.mensaje-error-campo:empty,
+.mensaje-estado:empty {
+    display: none;
 }
 
 .grupo-formulario.con-error input,
@@ -35,4 +40,14 @@
     flex-wrap: wrap;
     justify-content: center;
     margin-top: var(--espacio-md);
+}
+
+.texto-centrado {
+    text-align: center;
+}
+
+/* Mensajes de carga, vacío, error o éxito que escribe el JavaScript. */
+.mensaje-estado {
+    margin: 0;
+    font-weight: 600;
 }
